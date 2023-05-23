@@ -1,0 +1,22 @@
+.body--title {
+    font-size: 2.2rem;
+    margin-left: 14%;
+
+    font-weight: bolder;
+    font-family: monospace;
+    color: rgb(78, 78, 78);
+}
+
+@media (max-width: 600px) {
+    .body--title {
+        font-size: 1.2rem;
+        margin-left: 20px;
+        margin-right: 10px;
+
+        /* text-align: center; */
+    
+        font-weight: 600;
+        font-family: monospace;
+        color: rgb(78, 78, 78);
+    }
+}

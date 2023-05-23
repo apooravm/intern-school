@@ -1,0 +1,25 @@
+#root--ex {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* .body--ex  {
+    padding-top: 40px;
+} */
+
+.body--ex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main--ex {
+    margin-top: 0%;
+    height: calc(200vh - navbar-height); /* Adjust the height to exclude the navbar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Add this line to align items vertically */   
+}

@@ -1,0 +1,53 @@
+.vowels--all {
+  margin-inline: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#intro--bodytitle {
+  margin-block: 10px;
+}
+
+.container {
+  margin-top: 0%;
+  /*height: calc(200vh - navbar-height); /* Adjust the height to exclude the navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Add this line to align items vertically */
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+* {
+  cursor: default;
+  margin: 0px;
+}
+
+@media (max-width: 600px) {
+  #intro--bodytitle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .vowels--all {
+    margin-inline: 0px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* height: 100%; */
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

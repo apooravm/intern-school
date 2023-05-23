@@ -1,0 +1,95 @@
+.container--character {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    font-size: 3.2rem;
+    border: 0.1px solid rgba(113, 113, 113, 0.411);
+    transition: all 0.2s;
+
+    border-radius: 10px;
+
+    box-shadow: 4px 2px lightblue;
+    text-align: center;
+
+    min-width: 100px;
+
+    padding: 20px;
+
+}
+
+#char--text {
+    color: rgba(0, 0, 0, 0.723);
+}
+
+#char--trans {
+    transition: all 0.2s;
+}
+
+
+.container--character #char--trans{
+    color: rgba(0, 0, 0, 0.157);
+    font-size: 1.8rem;
+}
+
+.container--character:hover #char--trans{
+    color: rgb(71, 71, 71);
+    font-size: 1.8rem;
+}
+
+.container--character:hover {
+    color: rgb(0, 0, 0);
+    border: 0.1px solid rgb(148, 148, 148);
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .container--character {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        padding: 25px;
+
+        font-size: 2.5rem;
+        border: 3px solid rgba(113, 113, 113, 0.411);
+        transition: all 0.05s;
+    
+        border-radius: 5px;
+    
+        box-shadow: 0px 0px lightblue;
+        text-align: center;
+
+        min-width: 60px;
+
+        /*
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        
+        font-size: 2.5rem;
+        border: 0.1px solid rgba(113, 113, 113, 0.411);
+        transition: all 0.2s;
+    
+        border-radius: 5px;
+    
+        box-shadow: 4px 2px lightblue;
+        text-align: center;
+    
+        min-width: 300px;
+    
+        padding: 2px;
+        padding-inline-start: 0px;
+        padding-inline-end: 80px;
+        */
+    }
+
+    .container--character:hover {
+        color: rgb(0, 0, 0);
+        border: 3px solid rgb(148, 148, 148);
+        cursor: default;
+    }
+}
