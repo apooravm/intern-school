@@ -2,8 +2,11 @@ import React from "react";
 import { styled } from "styled-components";
 
 const StyledOptionsButton = styled.input`
-    padding-inline: 30px;
-    padding-block: 30px;
+    padding-inline: 150px;
+    padding-block: 24px;
+
+    min-width: 100%;
+    width: 100%;
 
     font-family: monospace;
     font-weight: 500;
@@ -32,12 +35,15 @@ const StyledOptionsButton = styled.input`
     }
 
     @media (max-width: 600px) {
-        width: 100%;
+        padding-inline: 130px;
+        padding-block: 25px;
+
         min-width: auto;
+        width: 100%;
 
         font-size: 160%;
 
-        padding-block: 20px;
+        padding-block: 15px;
 
         border-radius: 5px;
 

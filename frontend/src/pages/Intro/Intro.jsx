@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Intro.css';
+import './Intro.styled.css';
 
 import CharacterDisplay from '../../components/CharacterDisplay/CharacterDisplay';
 import NavBar from '../../components/Navbar/Navbar';

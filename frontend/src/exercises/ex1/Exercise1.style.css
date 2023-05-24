@@ -1,0 +1,26 @@
+#ex1--root {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    /* gap: 200px; */
+}
+
+.ex1--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    #ex1--root {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+        gap: 20px;
+    }
+}

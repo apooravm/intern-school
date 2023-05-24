@@ -1,5 +1,5 @@
 import React from 'react';
-import './Intro.css';
+import './Intro.styled.css';
 import airbnbLogo from '../../assets/airbnb.svg';
 
 import Header from '../../components/Header';

@@ -1,0 +1,36 @@
+#MainEx--root {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    height: 100vh;
+}
+
+.MainEx--tile {
+    padding-bottom: 40px;
+    padding-left: 200px;
+    font-weight: 500;
+    font-size: 180%;
+}
+
+.MainEx--container {
+    /* min-height: 400px; */
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 600px) {
+    .MainEx--container {
+        min-height: none;
+        padding-bottom: 10px;
+    }
+
+    .MainEx--tile {
+        padding-left: 0px;
+        padding-top: 20px;
+        text-align: center;
+        font-size: 150%;
+    }
+}

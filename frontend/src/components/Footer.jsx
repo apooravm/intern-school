@@ -19,7 +19,7 @@ const StyledFooter = styled.footer`
 
         padding: 10px;
         padding-bottom: 30px;
-        padding-block-start: 20px;
+        padding-block-start: 30px;
 
         -webkit-user-select: none; /* Safari */
         -moz-user-select: none; /* Firefox */
