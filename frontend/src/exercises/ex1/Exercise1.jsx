@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './Exercise1.style.css';
 import { styled } from "styled-components";
 
@@ -10,13 +10,13 @@ import OptionsButton from "../../components/OptionsButton";
 import Button from "../../components/Button";
 
 const c1 = {
-    "fg": "#b5f5ffa6",
+    "fg": "#ffffff",
     "text": "rgb(64, 64, 64)",
     "box": "rgb(103, 107, 108)",
     "border": "grey",
-    "hover": "rgba(139, 247, 255, 0.671)",
+    "hover": "rgba(197, 251, 255, 0.671)",
     "text_hover": "rgb(62, 62, 62)",
-    "active": "#52f9ffae",
+    "active": "#9efcffad",
     "active_box": "rgb(35, 137, 171)",
 };
 
@@ -45,13 +45,13 @@ const CharacterDisplay_Bigger = styled.input`
     font-size: 900%;
 
     background-color: ${ButtonColours.fg};
-    border: 4px solid ${ButtonColours.border};
+    border: 1px solid ${ButtonColours.border};
     border-radius: 30px;
 
     /* background-color: white; */
 
     color: ${ButtonColours.text};
-    box-shadow: 2px 2px ${ButtonColours.box};
+    /* box-shadow: 2px 2px ${ButtonColours.box}; */
     transition: all 0.2s;
 
     &:hover {
@@ -62,7 +62,8 @@ const CharacterDisplay_Bigger = styled.input`
     &:active {
         background-color: ${ButtonColours.active};
         box-shadow: 0px 0px ${ButtonColours.active_box};
-        transform: translateY(4px);
+        border: 5px solid rgba(125, 125, 125, 0.366);
+        transform: translateY(0px);
     }
 
     @media (max-width: 600px) {
@@ -78,21 +79,28 @@ const CharacterDisplay_Bigger = styled.input`
 
 function changeColours() {
     ButtonColours = c1;
+};
+
+const foo = () => {
+    console.log("play Sound");
 }
 
-const Exercise_1 = (props) => {
-    const displayingCharacter = props.char;
-    const correctOption = props.correct_op;
-    const other_option1 = props.other_op_1;
-    const other_option2 = props.other_op_2;
+const Exercise_1 = ({char, optionsArray, func}) => {
+    const [currActiveButton, setCurrActiveButton] = useState({"id": "", "value": ""});
+    const displayingCharacter = char;
     return (
         <div id="ex1--root">
            <CharacterDisplay_Bigger type="button" value={displayingCharacter} onClick={changeColours}></CharacterDisplay_Bigger>
             <div className="ex1--container">
-                <OptionsButton title={correctOption}></OptionsButton>
-                <OptionsButton title={other_option1}></OptionsButton>
-                <OptionsButton title={other_option2}></OptionsButton>
-                {/* <Button title="C" ></Button> */}
+                {optionsArray.map((data, index) => (
+                    <OptionsButton btnId={`op${index}`} 
+                    key={index}
+                    setActive={setCurrActiveButton} 
+                    currActive={currActiveButton} 
+                    title={data} 
+                    func={() => {func(data)}} 
+                    isActive={false}></OptionsButton>
+                ))}
             </div>
         </div>
     )

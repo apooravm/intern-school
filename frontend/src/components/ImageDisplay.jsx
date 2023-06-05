@@ -12,10 +12,10 @@ const StyledImageDisplay = styled.button`
     justify-content: space-around;
     align-items: center;
 
-    border: 3px solid rgba(125, 125, 125, 0.366);
+    border: 1px solid rgba(125, 125, 125, 0.366);
     border-radius: 20px;
 
-    box-shadow: 2px 2px rgb(138, 138, 138);
+    /* box-shadow: 2px 2px rgb(138, 138, 138); */
 
     background-color: white;
 
@@ -31,7 +31,9 @@ const StyledImageDisplay = styled.button`
     &:active {
         background-color: rgb(151, 253, 255);
         box-shadow: 0px 0px rgb(138, 138, 138);
-        transform: translateY(4px);
+
+        border: 5px solid rgba(125, 125, 125, 0.366);
+        transform: translateY(0px);
     }
 
     @media (max-width: 600px) {
@@ -47,6 +49,7 @@ const StyledImageDisplay = styled.button`
 const StyledImage = styled.img`
     width: 80%;
     height: 70%;
+    max-width: 80%;
 `;
 
 const StyledText = styled.div`

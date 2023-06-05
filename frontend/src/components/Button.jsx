@@ -14,12 +14,14 @@ const StyledButton = styled.input`
     border: 2px solid grey;
     border-radius: 20px;
 
-    box-shadow: 2px 2px rgb(116, 167, 185);
     box-shadow: 2px 2px grey;
     transition: all 0.2s;
 
+    background-color: white;
+
     &:hover {
-        background-color: rgba(224, 224, 224, 0.671);
+        /* background-color: rgba(224, 224, 224, 0.671); */
+        border-color: rgb(197, 0, 77);
         color: rgb(62, 62, 62);
     }
 
@@ -43,9 +45,18 @@ const StyledButton = styled.input`
     }
 `
 
-const Button = (props) => {
+const Button = ({title, setFooter, checkAnswer}) => {
+    const checkIfAnswerCorrect = () => {
+        if (checkAnswer) {
+            setFooter("correct");
+            console.log("Is Correct!")
+        } else {
+            setFooter("incorrect");
+            console.log("INCORRECT!")
+        }
+    }
     return (
-        <StyledButton type="button" value={props.title} onClick={props.func} />
+        <StyledButton type="button" value={title} onClick={checkIfAnswerCorrect}/>
     )
 }
 

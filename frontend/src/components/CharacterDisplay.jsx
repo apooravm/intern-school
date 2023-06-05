@@ -76,15 +76,15 @@ const StyledTransChar = styled.div`
     font-size: 1.8rem;
 `;
 
-export default function CharacterDisplay(props) {
+export default function CharacterDisplay({char, eng_trans}) {
     const playSound = async () => {
-      console.log(`${props.char} sound`);
+      console.log(`${char} sound`);
     };
   
     return (
       <StyledCharacterDisplay onMouseEnter={playSound}>
-        <StyledTextChar>{props.char}</StyledTextChar>
-        <StyledTransChar id="char--trans">{props.eng_trans}</StyledTransChar>
+        <StyledTextChar>{char}</StyledTextChar>
+        <StyledTransChar id="char--trans">{eng_trans}</StyledTransChar>
       </StyledCharacterDisplay>
     );
   }

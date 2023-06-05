@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import Button from "./Button";
+import { useEffect } from "react";
 
 const StyledFooter = styled.footer`
     display: flex;
@@ -9,8 +10,18 @@ const StyledFooter = styled.footer`
     align-items: center;
     padding: 30px;
     padding-bottom: 30px;
+    
+    border-top: 5px solid rgb(213, 213, 213);
 
-    border-top: 5px solid rgba(213, 213, 213, 0.507);
+    background-color: rgb(17, 100, 102);
+
+    ${({ footer_state }) =>
+        footer_state === "correct"
+        ? `
+            background-color: #fdfdfd;
+        `
+        : ``
+    }
 
     @media (max-width: 600px) {
         flex-direction: column;
@@ -34,7 +45,8 @@ const StyledText = styled.div`
     font-family: monospace;
     font-size: 160%;
     font-weight: 500;
-    color: rgb(88, 88, 88);
+    color: rgb(0, 0, 0);
+    /* color: rgb(238, 255, 255); */
 
     @media (max-width: 600px) {
         padding-bottom: 20px;
@@ -42,13 +54,25 @@ const StyledText = styled.div`
     }
 `
 
-const Footer = (props) => {
+const Footer = ({text, checkAnswer}) => {
+    const [footerCorrect, setFooterCorrect] = useState("inactive");
+    let displayText = text;
+    let buttonText = "check";
+    useEffect(() => {
+        if (footerCorrect !== "inactive") {
+            if (footerCorrect === "correct") {
+                displayText = "Correct Answer!";
+                buttonText = "next";
+            }
+        }
+      }, [footerCorrect]);
+      
     return (
-        <StyledFooter>
+        <StyledFooter footer_state={footerCorrect}>
             <StyledText>
-                {props.text}
+                {displayText}
             </StyledText>
-            <Button title={props.button_text}></Button>
+            <Button title={buttonText} checkAnswer={checkAnswer} setFooter={setFooterCorrect}></Button>
         </StyledFooter>
     )
 }

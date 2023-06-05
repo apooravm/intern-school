@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { styled } from "styled-components";
 
-const StyledOptionsButton = styled.input`
+const StyledOptionsButton = styled.button`
     padding-inline: 150px;
     padding-block: 24px;
 
@@ -14,25 +14,40 @@ const StyledOptionsButton = styled.input`
     color: rgb(105, 105, 105);
 
     background-color: #ffffff;
-    border: 4px solid #ccccccac;
-    border-radius: 30px;
+    border: 3px solid #ccccccac;
+    border-radius: 10px;
 
     /* background-color: white; */
 
-    box-shadow: 2px 2px rgb(103, 107, 108);
-    box-shadow: 2px 2px grey;
-    transition: all 0.2s;
+    /* box-shadow: 2px 2px rgb(103, 107, 108); */
+    /* transition: all 0.2s; */
+
+    overflow: hidden;
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); // easeOutQuart
 
     &:hover {
-        background-color: rgba(204, 204, 204, 0.671);
+        /* background-color: rgba(204, 204, 204, 0.671); */
+        background-color: rgb(235, 255, 181);
         color: rgb(62, 62, 62);
+        /* box-shadow: 3px 3px 3px rgba(197, 0, 77, 0.9); */
     }
 
     &:active {
-        background-color: #b9b9b9b0;
-        box-shadow: 0px 0px rgb(35, 137, 171);;
+        background-color: #000000;
+        color: #ffffff;
+        box-shadow: 0px 0px rgb(35, 137, 171);
         transform: translateY(4px);
     }
+    ${({ isactive }) =>
+    isactive === "true"
+      ? `
+        background-color: #000000;
+        color: #ffffff;
+        box-shadow: 0px 0px rgb(35, 137, 171);
+        transform: translateY(4px);
+      `
+      : ``
+  };
 
     @media (max-width: 600px) {
         padding-inline: 130px;
@@ -51,9 +66,15 @@ const StyledOptionsButton = styled.input`
     }   
 `;
 
-const OptionsButton = (props) => {
+const OptionsButton = ({title, func, currActive, setActive, btnId}) => {
+    const clickHandler = () => {
+        setActive({"id": btnId, "value": title});
+        func();
+    }
     return (
-        <StyledOptionsButton type="button" value={props.title} onClick={props.func}/>
+        <StyledOptionsButton onClick={clickHandler} isactive={currActive.id === btnId ? "true" : "false"}>
+            {title}
+        </StyledOptionsButton>
     )
 }
 

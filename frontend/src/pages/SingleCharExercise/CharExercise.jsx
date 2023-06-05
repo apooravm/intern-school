@@ -1,7 +1,6 @@
 import React from "react";
 import './CharExercise.styled.css';
 
-import NavBar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import BodyTitle from '../../components/BodyTitle/BodyTitle';
 import SingleCharacter from "../../components/SingleCharacter/SingleCharacter";

@@ -1,6 +1,7 @@
 import React from "react";
 import './Exercise_2.styled.css';
 import { styled } from "styled-components";
+import { useState } from "react";
 
 import airbnbLogo from '../../assets/airbnb.svg';
 
@@ -27,7 +28,12 @@ const Styled_Options_Container = styled.div`
     gap: 10px;
 `;
 
+const foo = () => {
+    console.log("play Sound")
+}
+
 const Exercise_2 = (props) => {
+    const [currActiveId, setCurrActiveId] = useState('');
     const displayImage = props.image;
     const correctOption = props.correct_op;
     const other_option1 = props.other_op_1;
@@ -37,9 +43,24 @@ const Exercise_2 = (props) => {
         <Styled_Container>
             <ImageDisplay image={displayImage} text="bruh"></ImageDisplay>
             <Styled_Options_Container>
-                <OptionsButton title={correctOption}></OptionsButton>
-                <OptionsButton title={other_option1}></OptionsButton>
-                <OptionsButton title={other_option2}></OptionsButton>
+            <OptionsButton btnId={'op1'} 
+                        setActive={setCurrActiveId} 
+                        currActive={currActiveId} 
+                        title={correctOption} 
+                        func={foo} 
+                        isActive={false}></OptionsButton>
+                <OptionsButton btnId={'op2'} 
+                        setActive={setCurrActiveId} 
+                        currActive={currActiveId} 
+                        title={other_option1} 
+                        func={foo} 
+                        isActive={false}></OptionsButton>
+                <OptionsButton btnId={'op3'} 
+                        setActive={setCurrActiveId} 
+                        currActive={currActiveId} 
+                        title={other_option2} 
+                        func={foo} 
+                        isActive={false}></OptionsButton>
             </Styled_Options_Container>
         </Styled_Container>
     )
