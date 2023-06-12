@@ -1,48 +1,43 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const colourPallete = {
-    "buttonBorder": 'rgb(81, 81, 81)',
-    "textNormal": 'rgb(109, 109, 109)',
-    "textHighlighted": 'rgb(87, 87, 87)',
-    "bgHover": 'rgb(224, 237, 244)',
-    "bgActive": 'rgb(219, 219, 219)'
-};
+import Pallete from "./GlobalColourPallete";
 
 const StyledOptionsButton = styled.button`
     padding-block: 16px;
-    /* max-width: 200px; */
 
     min-width: 9rem;
     min-height: 8rem;
 
     font-size: 400%;
-    font-family: monospace;
-    color: ${colourPallete.textNormal};
+    font-family: ${Pallete.font_family};
+    color: ${Pallete.SquareButton.text};
 
-    background-color: white;
-    border: 2px solid ${colourPallete.buttonBorder};
-    box-shadow: 3px 4px 0px ${colourPallete.buttonBorder};
+    background-color: ${Pallete.SquareButton.default};
+    border: 3px solid ${Pallete.SquareButton.border_shadow};
+    box-shadow: 3px 3px 0px ${Pallete.SquareButton.border_shadow};
+
+    border-radius: 10px;
 
     transition: all 0.2s;
 
     &:hover {
-        background-color: ${colourPallete.bgHover};
-        color: ${colourPallete.textHighlighted};
+        background-color: ${Pallete.SquareButton.hover_active};
+        color: ${Pallete.SquareButton.text_hover};
     }
     &:active {
-        background-color: ${colourPallete.bgActive};
-        color: ${colourPallete.textHighlighted};
-        box-shadow: 0px 0px 0px ${colourPallete.buttonBorder};
-        transform: translateY(4px);
+        background-color: ${Pallete.SquareButton.hover_active};
+        color: ${Pallete.SquareButton.text_hover};
+        box-shadow: 0px 0px 0px;
+        transform: translateY(3px);
     }
     ${({ is_active }) =>
     is_active === "true"
       ? `
-        background-color: ${colourPallete.bgActive};
-        color: ${colourPallete.textHighlighted};
-        box-shadow: 0px 0px 0px ${colourPallete.buttonBorder};
-        transform: translateY(4px);
+        background-color: ${Pallete.SquareButton.hover_active};
+        color: ${Pallete.SquareButton.text_hover};
+        box-shadow: 0px 0px 0px;
+        transform: translateY(3px);
       `
       : ``
     };
@@ -51,9 +46,9 @@ const StyledOptionsButton = styled.button`
         min-width: none;
         font-size: 200%;
 
-        background-color: white;
-        border: 4px solid ${colourPallete.buttonBorder};
-        box-shadow: 0px 0px 0px ${colourPallete.buttonBorder};
+        background-color: ${Pallete.SquareButton.default};
+        border: 4px solid ${Pallete.SquareButton.border_shadow};
+        box-shadow: 0px 0px 0px ${Pallete.SquareButton.border_shadow};
 
         transition: all 0.01s;
     }

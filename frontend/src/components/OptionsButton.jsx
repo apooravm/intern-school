@@ -1,48 +1,45 @@
 import React, { useEffect } from "react";
 import { styled } from "styled-components";
 
+import Pallete from "./GlobalColourPallete";
+
 const StyledOptionsButton = styled.button`
-    padding-inline: 150px;
-    padding-block: 24px;
+    padding-inline: 130px;
+    padding-block: 10px;
 
     min-width: 100%;
     width: 100%;
 
-    font-family: monospace;
+    font-family: poppins;
     font-weight: 500;
-    font-size: 160%;
-    color: rgb(105, 105, 105);
+    font-size: 230%;
+    color: ${Pallete.optionsButton.text};
 
-    background-color: #ffffff;
-    border: 3px solid #ccccccac;
-    border-radius: 10px;
+    background-color: ${Pallete.currWhite};
+    border: 2.5px solid ${Pallete.optionsButton.border_shadow};
+    border-radius: 12px;
 
-    /* background-color: white; */
-
-    /* box-shadow: 2px 2px rgb(103, 107, 108); */
-    /* transition: all 0.2s; */
+    box-shadow: 0px 3px ${Pallete.optionsButton.border_shadow};
 
     overflow: hidden;
     transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1); // easeOutQuart
 
     &:hover {
-        /* background-color: rgba(204, 204, 204, 0.671); */
-        background-color: rgb(235, 255, 181);
-        color: rgb(62, 62, 62);
-        /* box-shadow: 3px 3px 3px rgba(197, 0, 77, 0.9); */
+        background-color: ${Pallete.optionsButton.hover_active_bg};
+        color: ${Pallete.optionsButton.hover_active_text};
     }
 
     &:active {
-        background-color: #000000;
-        color: #ffffff;
-        box-shadow: 0px 0px rgb(35, 137, 171);
-        transform: translateY(4px);
+        background-color: ${Pallete.optionsButton.hover_active_bg};
+        color: ${Pallete.optionsButton.hover_active_text};
+        box-shadow: 0px 0px;
+        transform: translateY(3px);
     }
     ${({ isactive }) =>
     isactive === "true"
       ? `
-        background-color: #000000;
-        color: #ffffff;
+        background-color: ${Pallete.optionsButton.hover_active_bg};
+        color: #3d3d3d;
         box-shadow: 0px 0px rgb(35, 137, 171);
         transform: translateY(4px);
       `
@@ -52,6 +49,9 @@ const StyledOptionsButton = styled.button`
     @media (max-width: 600px) {
         padding-inline: 130px;
         padding-block: 25px;
+        border: 3px solid ${Pallete.optionsButton.border_shadow};
+        box-shadow: 0px 0px ${Pallete.optionsButton.border_shadow};
+        transform: translateY(0px);
 
         min-width: auto;
         width: 100%;
@@ -62,14 +62,30 @@ const StyledOptionsButton = styled.button`
 
         border-radius: 5px;
 
-        transition: all 0.01s;
+        transition: all 0.1s;
+
+        &:active {
+            background-color: ${Pallete.optionsButton.hover_active_bg};
+            color: ${Pallete.optionsButton.hover_active_text};
+            box-shadow: 0px 0px rgb(35, 137, 171);
+            /* transform: translateY(4px); */
+        }
+        ${({ isactive }) =>
+            isactive === "true"
+            ? `
+                background-color: ${Pallete.optionsButton.hover_active_bg};
+                color: ${Pallete.optionsButton.hover_active_text};
+                box-shadow: 0px 0px rgb(35, 137, 171);
+            `
+            : ``
+        };
     }   
 `;
 
 const OptionsButton = ({title, func, currActive, setActive, btnId}) => {
     const clickHandler = () => {
         setActive({"id": btnId, "value": title});
-        func();
+        func(title);
     }
     return (
         <StyledOptionsButton onClick={clickHandler} isactive={currActive.id === btnId ? "true" : "false"}>

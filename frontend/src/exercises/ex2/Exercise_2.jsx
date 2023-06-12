@@ -2,6 +2,7 @@ import React from "react";
 import './Exercise_2.styled.css';
 import { styled } from "styled-components";
 import { useState } from "react";
+import { useEffect } from "react";
 
 import airbnbLogo from '../../assets/airbnb.svg';
 
@@ -32,35 +33,27 @@ const foo = () => {
     console.log("play Sound")
 }
 
-const Exercise_2 = (props) => {
-    const [currActiveId, setCurrActiveId] = useState('');
-    const displayImage = props.image;
-    const correctOption = props.correct_op;
-    const other_option1 = props.other_op_1;
-    const other_option2 = props.other_op_2;
+const Exercise_2 = ({func, image, optionsArray, reset}) => {
+    const [currActiveId, setCurrActiveId] = useState({"id": "", "value": ""});
+    const displayImage = image;
+
+    useEffect(() => {
+        setCurrActiveId({"id": "", "value": ""});
+    }, [reset])
 
     return (
         <Styled_Container>
-            <ImageDisplay image={displayImage} text="bruh"></ImageDisplay>
+            <ImageDisplay image={displayImage} text="image text"></ImageDisplay>
             <Styled_Options_Container>
-            <OptionsButton btnId={'op1'} 
+                {optionsArray.map((data, dataI) => (
+                    <OptionsButton btnId={`op${dataI}`}
+                        key={dataI}
                         setActive={setCurrActiveId} 
                         currActive={currActiveId} 
-                        title={correctOption} 
-                        func={foo} 
-                        isActive={false}></OptionsButton>
-                <OptionsButton btnId={'op2'} 
-                        setActive={setCurrActiveId} 
-                        currActive={currActiveId} 
-                        title={other_option1} 
-                        func={foo} 
-                        isActive={false}></OptionsButton>
-                <OptionsButton btnId={'op3'} 
-                        setActive={setCurrActiveId} 
-                        currActive={currActiveId} 
-                        title={other_option2} 
-                        func={foo} 
-                        isActive={false}></OptionsButton>
+                        title={data} 
+                        func={() => {func(data)}} 
+                        isActive={false} />
+                ))}
             </Styled_Options_Container>
         </Styled_Container>
     )

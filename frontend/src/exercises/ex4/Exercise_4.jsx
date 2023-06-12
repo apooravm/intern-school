@@ -9,8 +9,10 @@ import {HTML5Backend} from 'react-dnd-html5-backend';
 
 import OptionsButton from "../../components/OptionsButton";
 
+import Pallete from "../../components/GlobalColourPallete";
+
 const colourPallete = {
-    "buttonBorder": 'rgb(81, 81, 81)',
+    "buttonBorder": 'rgb(67, 39, 52)',
     "textNormal": 'rgb(109, 109, 109)',
     "textHighlighted": 'rgb(87, 87, 87)',
     "bgHover": 'rgb(224, 237, 244)',
@@ -20,24 +22,23 @@ const colourPallete = {
 const StyledInputDiv = styled.div`
     text-align: center;
     padding-top: 20px;
-    min-height: 100px;
+    min-height: 110px;
     min-width: 100px;
 
     font-family: monospace;
     font-size: 600%;
-    color: rgb(66, 66, 66);
+    color: ${Pallete.text.default};
 
-    border-bottom: 3px dotted rgb(2, 2, 2);
+    border-bottom: 3px dotted ${Pallete.border.default};
 
     @media (max-width: 600px) {
-        text-align: center;
-        padding-top: 20px;
+        /* text-align: center; */
+        /* padding-top: 20px; */
         min-height: 50px;
-        min-width: 0px;
+        font-size: 100%;
+        /* min-width: 0px; */
 
-        font-size: 200%;
-
-        border-bottom: 2px dotted rgb(2, 2, 2);
+        /* border-bottom: 2px; */
     }
 `;
 
@@ -48,7 +49,7 @@ const StyledSoundButton = styled.button`
     width: 0;
     height: 74px;
 
-    border-color: transparent transparent transparent #202020;
+    border-color: transparent transparent transparent ${Pallete.SoundButton.default};
     transition: 100ms all ease;
     cursor: pointer;
 
@@ -62,7 +63,7 @@ const StyledSoundButton = styled.button`
     }
 
     &:hover {
-        border-color: transparent transparent transparent #404040;
+        border-color: transparent transparent transparent ${Pallete.SoundButton.active};
     }
 
 `;
@@ -72,29 +73,31 @@ const StyledButtonImage = styled.img`
 `;
 
 const StyledDeleteButton = styled.button`
-    padding-block: 23px;
+    padding-block: 15px;
     padding-inline: 50px;
 
-    font-size: 180%;
-    font-family: monospace;
-    color: ${colourPallete.textNormal};
-    background-color: white;
+    font-size: 140%;
+    font-weight: 500;
+    font-family: poppins;
+    color: ${Pallete.default ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)'};
+    background-color: ${Pallete.DeleteButton.default};
 
-    border: 2px solid ${colourPallete.buttonBorder};
-    box-shadow: 3px 4px 0px ${colourPallete.buttonBorder};
+    border: 2px solid ${Pallete.DeleteButton.border_shadow};
+    box-shadow: 2px 2px 0px ${Pallete.DeleteButton.border_shadow};
 
     transition: all 0.2s;
+    border-radius: 30px;
     
     &:hover {
-        background-color: rgb(255, 167, 157);
+        background-color: ${Pallete.DeleteButton.hover};
         color: rgb(74, 74, 74);
     }
 
     &:active {
-        background-color: rgb(255, 40, 16);
-        color: rgb(255, 255, 255);
-        box-shadow: 0px 0px 0px ${colourPallete.buttonBorder};
-        transform: translateY(4px);
+        background-color: ${Pallete.DeleteButton.active};
+        color: ${Pallete.default ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)'};
+        box-shadow: 0px 0px 0px ${Pallete.header.default};
+        transform: translateY(2px);
     }
 `;
 
@@ -144,7 +147,7 @@ const DeleteButton = ({mainStack, setMainStack}) => {
     const deleteLastBlank = () => {
         const updatedResultsOrder = [...mainStack.resultsOrder];
         for (let i = updatedResultsOrder.length - 1; i >= 0; i--) {
-            if (updatedResultsOrder[i]) {
+            if (updatedResultsOrder[i] !== null) {
                 updatedResultsOrder[i] = null;
                 break;
             }
@@ -161,7 +164,7 @@ const DeleteButton = ({mainStack, setMainStack}) => {
     )
 };
 
-const SoundButton = ({audioPath}) => {
+const SoundButton = ({sound}) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isDisabled, setDisabled] = useState(false);
 
@@ -169,7 +172,7 @@ const SoundButton = ({audioPath}) => {
         setDisabled(true);
 
         if (!isDisabled) {
-            const audio = new Audio(sampleSound);
+            const audio = new Audio(sound);
             audio.play();
             setDisabled(true);
       
@@ -197,40 +200,43 @@ const fizz = (title) => {
     console.log(`${title} Sound!`);
 }
 
-const Exercise_4 = ({}) => {
+const Exercise_4 = ({charSound, func, optionsArray, reset}) => {
     const [currActiveId, setCurrActiveId] = useState('');
-    const buttonData = [
-        {
-            "title": "A",
-            "func": () => fizz("A"),
-        },
-        {
-            "title": "B",
-            "func": () => fizz("B"),
-        },
-        {
-            "title": "C",
-            "func": () => fizz("C"),
-        },
-        {
-            "title": "D",
-            "func": () => fizz("D"),
-        },
-    ]
-
     const [globCompState, setGlobCompState] = useState({
-        "optionsLength": buttonData.length,
-        "resultsOrder": buttonData.map(data => null)
+        "optionsLength": optionsArray.length,
+        "resultsOrder": optionsArray.map(data => null)
     });
+
+    useEffect(() => {
+        setCurrActiveId({"id": "", "value": ""});
+        setGlobCompState({
+            "optionsLength": optionsArray.length,
+            "resultsOrder": optionsArray.map(data => null)
+        });
+    }, [reset])
+
+    useEffect(() => {
+        // Checks if stack contains any non null vals
+        // Used to disable/enable the footer check button
+        // for (const char of globCompState.resultsOrder) {
+        //     if (char !== null) {
+        //         // The main stack is stores null chars for UI reasons. 
+        //         // Thus if it encounters a non null char, means that the user has input
+        //         // Check against the correct stack then
+        //         func(globCompState.resultsOrder);
+        //     }   
+        // }
+        func(globCompState.resultsOrder)
+    }, [globCompState])
 
     return (
         <div className="Ex4--container">
             <div className="Ex4--buttons-container">
-                {buttonData.map((data, dataI) => (
+                {optionsArray.map((data, dataI) => (
                     <OptionButton btnId={`op${dataI}`} 
                                 key={dataI} 
-                                title={data.title} 
-                                func={data.func} 
+                                title={data}
+                                func={() => {}}
                                 mainStack={globCompState} 
                                 setMainStack={setGlobCompState}
                                 currActiveId={currActiveId}
@@ -245,7 +251,7 @@ const Exercise_4 = ({}) => {
                     ))}
                 </div>
                 <div className="Ex4--soundButton-container">
-                    <SoundButton />
+                    <SoundButton sound={charSound}/>
                     <DeleteButton mainStack={globCompState} setMainStack={setGlobCompState} />
                 </div>
             </div>

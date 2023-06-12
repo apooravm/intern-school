@@ -4,14 +4,7 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import sampleSound from '../../assets/sampleSound.mp3';
 import SqrButton from "../../components/SqrButton";
-
-const colourPallete = {
-    "buttonBorder": 'rgb(81, 81, 81)',
-    "textNormal": 'rgb(109, 109, 109)',
-    "textHighlighted": 'rgb(87, 87, 87)',
-    "bgHover": 'rgb(224, 237, 244)',
-    "bgActive": 'rgb(219, 219, 219)'
-};
+import { useEffect } from "react";
 
 const playButtonSizing = {
     "height": 10,
@@ -77,14 +70,13 @@ const SoundButton = ({audioPath}) => {
 }
 
 const ButtonOption = ({func, option, setCurrOption, setActive, currActive, btnId}) => {
-    const [value, setValue] = useState(option);
     const changeOption = () => {
-        setCurrOption(value);
+        setCurrOption(option);
         func();
     }
     return (
         <SqrButton btnId={btnId} 
-                    title={value || " "}
+                    title={option || " "}
                     func={changeOption} 
                     setActive={setActive} 
                     currActive={currActive}/>
@@ -101,18 +93,24 @@ const sampleData = {
     ]
 }
 
-const Exercise_6 = ({data}) => {
-    const [currOption, setCurrOption] = useState("");
-    const [currActive, setCurrActive] = useState('');
+const Exercise_6 = ({func, optionsArray, sound, reset}) => {
+    const [currOption, setCurrOption] = useState(""); // Display Text
+    const [currActive, setCurrActive] = useState(''); // Button Text
+    
+    useEffect(() => {
+        setCurrActive('');
+        setCurrOption("");
+    }, [reset])
+
     return (
         <div className="Ex6--container">
-            <SoundButton audioPath={sampleData.audioPath}/>
+            <SoundButton audioPath={sound}/>
             <div className="Ex6--options-container">
-                {sampleData.options.map((data, dataI) => (
+                {optionsArray.map((data, dataI) => (
                     <ButtonOption key={dataI} 
                                 currActive={currActive}
                                 setActive={setCurrActive}
-                                func={() => {console.log("Sound")}}
+                                func={() => {func(data)}}
                                 option={data} 
                                 setCurrOption={setCurrOption} 
                                 btnId={`op${dataI}`}/>

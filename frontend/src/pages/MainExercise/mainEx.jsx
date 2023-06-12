@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import './mainEx.styled.css';
 import airbnbLogo from '../../assets/airbnb.svg';
+import GlobalStyles from "../../components/GlobalStyles.styled";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -11,6 +12,9 @@ import Exercise_4 from "../../exercises/ex4/Exercise_4";
 import Exercise_5 from "../../exercises/ex5/Exercise_5";
 import Exercise_6 from '../../exercises/ex6/Exercise_6';
 
+import sample_logo2 from '../../assets/sample_logo2.png';
+import sampleSound from '../../assets/sampleSound.mp3';
+
 const PageText = {
     "title": "No Question given",
     "footer_text": "Bottom Footer text",
@@ -19,25 +23,19 @@ const PageText = {
 
 const mango = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
 
-const Exercise1_W = ({question, characterDisplayed, correct_option, other_option1, other_option2, setIsCorrect}) => {
-    const title = question || PageText.title;
-    const char = characterDisplayed;
+const Exercise1_W = ({data, setIsCorrect, reset}) => {
+    const characterDisplayed= data.displayCharacter; 
+    const correct_option= data.correct_option; 
+    const options_array= data.optionsArray; 
     
-    let optionsArray = [other_option1, correct_option, other_option2];
+    const title = false || PageText.title;
+    const char = characterDisplayed;
+
     function foo(chosenOption) {
         if (chosenOption === correct_option) {
-            console.log("correct!");
             setIsCorrect(true);
         } else {
-            console.log("wrong");
             setIsCorrect(false);
         }
     }
@@ -47,81 +45,238 @@ const Exercise1_W = ({question, characterDisplayed, correct_option, other_option
                 {title}
             </div>
             <Exercise_1 char={char}
-                        optionsArray={optionsArray}
+                        reset={reset}
+                        optionsArray={options_array}
                         func={foo}
                         ></Exercise_1>
-        </div>
+            </div>
     )
 }
 
-const Exercise2_W = (props) => {
-    const title = props.title || PageText.title;
-    const image = props.image || mango;
-    const correct_op = props.correct_op;
-    const other_op1 = props.other_op_1;
-    const other_op2 = props.other_op_2;
+const Exercise2_W = ({data, setIsCorrect, reset}) => {
+    const displayImage= data.imgSrc;
+    const correct_option= data.correctOption; 
+    const optionsArray= data.optionsArray; 
+
+    const title = false || PageText.title;
+    const image = displayImage || mango;
+
+    function setResult(chosenOption) {
+        if (chosenOption === correct_option) {
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
+        }
+    }
     return (
         <div className="MainEx--container">
             <div className="MainEx--tile">
                 {title}
             </div>
-            <Exercise_2 image={image} correct_op={correct_op} other_op_1={other_op1} other_op_2={other_op2}></Exercise_2>
+            <Exercise_2 func={setResult} 
+                        reset={reset} 
+                        image={image} 
+                        optionsArray={optionsArray}/>
         </div>
     )
 }
 
-const Exercise4_W = (props) => {
-    const title = props.title || PageText.title;
+const Exercise4_W = ({data, setIsCorrect, reset}) => {
+    const sound = data.sound; 
+    const correct_order = data.correctOrder; 
+    const optionsArray = data.optionsArray;
+
+    const title = "Order the given according to the sound!" || PageText.title;
+
+    function checkOrder(inputStackArray) {
+        const checkArrayNull = () => {
+            for (const char of inputStackArray) {
+                if (char !== null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        if (!checkArrayNull()) {
+            if (JSON.stringify(correct_order) === JSON.stringify(inputStackArray)) {
+                setIsCorrect(true);
+            } else {
+                setIsCorrect(false);
+            }   
+        } else {
+            setIsCorrect("");
+        }
+    }
+
     return (
         <div className="MainEx--container">
             <div className="MainEx--tile">
                 {title}
             </div>
-            <Exercise_4 ></Exercise_4>
+            <Exercise_4 charSound={sound} 
+                        reset={reset} 
+                        func={checkOrder} 
+                        optionsArray={optionsArray}/>
         </div>
     )
 };
 
-const Exercise5_W = (props) => {
-    const title = props.title || PageText.title;
+const Exercise5_W = ({data, setIsCorrect, reset}) => {
+    const correct_option = data.correctOption; 
+    const incompleteText = data.incompleteText; 
+    const optionsArray = data.optionsArray;
+    // console.log(optionsArray)
+
+    const title = false || PageText.title;
+    function checkResult(chosenOption) {
+        if (chosenOption === correct_option) {
+            setIsCorrect(true);
+
+        } else {
+            setIsCorrect(false);
+        }
+    }
     return (
         <div className="MainEx--container">
             <div className="MainEx--tile">
                 {title}
             </div>
-            <Exercise_5 ></Exercise_5>
+            <Exercise_5 func={checkResult} 
+                        reset={reset} 
+                        incompleteText={incompleteText} 
+                        optionsArray={optionsArray}/>
         </div>
     )
 };
 
-const Exercise6_W = (props) => {
-    const title = props.title || PageText.title;
+const Exercise6_W = ({data, setIsCorrect, reset}) => {
+    const sound = data.sound;
+    const correct_option = data.correctOption; 
+    const optionsArray = data.optionsArray; 
+
+    const title = false || PageText.title;
+
+    function checkResult(chosenOption) {
+        if (chosenOption === correct_option) {
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
+        }
+    }
     return (
         <div className="MainEx--container">
             <div className="MainEx--tile">
                 {title}
             </div>
-            <Exercise_6 ></Exercise_6>
+            <Exercise_6 optionsArray={optionsArray} 
+                        reset={reset} 
+                        func={checkResult} 
+                        sound={sound}/>
         </div>
     )
-}
+};
 
-const MainEx = ({data}) => {
-    const [isCorrect, setIsCorrect] = useState(false);
+import { getRandomEx } from "../../QuestionCombos";
+let [initNum, initData] = getRandomEx();
+
+const MainEx = () => {
+    const [isCorrect, setIsCorrect] = useState("");
+    const [changeEx, setChangeEx] = useState({"count": 0, "score": 0, "change": false});
+    const [exerciseData, setExerciseData] = useState({"ExNum": initNum, "data": initData});
+    const [resetButtons, setResetButtons] = useState(false);
+    const [currentExercise, setCurrentExercise] = useState(<Exercise1_W
+                                                                data={exerciseData.data}
+                                                                setIsCorrect={setIsCorrect}/>);
+
+    const switchEx = (num) => {
+        switch (num) {
+            case 1:
+                setCurrentExercise(
+                    <Exercise1_W
+                            data={exerciseData.data}
+                            reset={resetButtons}
+                            setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            case 2:
+                setCurrentExercise(
+                    <Exercise2_W
+                            data={exerciseData.data}
+                            reset={resetButtons}
+                            setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            case 4:
+                setCurrentExercise(
+                    <Exercise4_W
+                        data={exerciseData.data}
+                        reset={resetButtons}
+                        setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            case 5:
+                setCurrentExercise(
+                    <Exercise5_W
+                        data={exerciseData.data}
+                        reset={resetButtons}
+                        setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            case 6:
+                setCurrentExercise(
+                    <Exercise6_W 
+                        data={exerciseData.data}
+                        reset={resetButtons}
+                        setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            default:
+                break;
+        }
+    }
+
+    useEffect(() => {
+        switchEx(exerciseData.ExNum);
+    }, [exerciseData])
+
+    useEffect(() => {
+        if (changeEx.change) {
+            if (changeEx.count >= 5) {
+                alert(`Score is ${changeEx.score}/5`);
+            } else {
+                let [ExNum, ExData] = getRandomEx();
+                console.log(ExData)
+                setResetButtons(!resetButtons);
+                setExerciseData({
+                    "ExNum": ExNum, 
+                    "data": ExData
+                });
+                setIsCorrect(""); // Disable footer button
+                setChangeEx((prevState) => ({
+                    ...prevState,
+                    "change": false
+                }));
+            }
+        }
+    }, [changeEx]);
+
     return (
         <div id='MainEx--root'>
-            <Header logo={airbnbLogo}></Header>
+            <Header logo={sample_logo2}></Header>
 
-            <Exercise1_W question="" characterDisplayed="A" correct_option="A" other_option1="B" other_option2="C" setIsCorrect={setIsCorrect}></Exercise1_W>
-            <Exercise2_W title="" image="" correct_op="M" other_op_1="A" other_op_2="B"></Exercise2_W>
-            <Exercise4_W />
-            <Exercise5_W />
-            <Exercise6_W/>
+            {currentExercise}
+
             <div className="MainEx--footer">
-                <Footer text={PageText.footer_text} button_text={PageText.footer_button_text} checkAnswer={isCorrect}></Footer>
+                <Footer bottomText={PageText.footer_text} 
+                        button_text={PageText.footer_button_text} 
+                        checkAnswer={isCorrect} 
+                        answer_description={exerciseData.data.answer_description} 
+                        nextExState={setChangeEx}
+                        prevExState={changeEx}>
+                </Footer>
             </div>
         </div>
     )
-}
+};
 
 export default MainEx;

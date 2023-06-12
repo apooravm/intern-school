@@ -1,8 +1,9 @@
 import React from "react";
 import { styled } from "styled-components";
 
-const StyledImageDisplay = styled.button`
+import Pallete from "./GlobalColourPallete";
 
+const StyledImageDisplay = styled.button`
     min-width: 300px;
     width: 200px;
     min-height: 300px;
@@ -12,27 +13,25 @@ const StyledImageDisplay = styled.button`
     justify-content: space-around;
     align-items: center;
 
-    border: 1px solid rgba(125, 125, 125, 0.366);
+    border: 3px solid ${Pallete.ImageDisplay.border_shadow};
     border-radius: 20px;
 
-    /* box-shadow: 2px 2px rgb(138, 138, 138); */
-
-    background-color: white;
+    background-color: ${Pallete.currWhite};
 
     transition: all 0.2s;
 
     &:hover {
-        background-color: rgb(192, 254, 255);
+        background-color: ${Pallete.ImageDisplay.hover};
         #ImgDisp--text {
-            color: rgb(0, 0, 0);
+            color: ${Pallete.ImageDisplay.text_active};
         }
     }
 
     &:active {
-        background-color: rgb(151, 253, 255);
-        box-shadow: 0px 0px rgb(138, 138, 138);
+        background-color: ${Pallete.ImageDisplay.active};
+        box-shadow: 0px 0px;
 
-        border: 5px solid rgba(125, 125, 125, 0.366);
+        border: 5px solid ${Pallete.ImageDisplay.border_shadow};
         transform: translateY(0px);
     }
 
@@ -40,8 +39,6 @@ const StyledImageDisplay = styled.button`
         min-width: 280px;
         width: none;
         min-height: 290px;
-        /* align-items: center; */
-
         margin-bottom: 10px;
     }
 `;
@@ -54,23 +51,19 @@ const StyledImage = styled.img`
 
 const StyledText = styled.div`
     justify-content: center;
-    color: rgb(105, 105, 105);
-    font-size: 110%;
-    font-weight: 500;
-    font-family: monospace;
+    color: ${Pallete.ImageDisplay.text};
+    font-size: 100%;
+    font-weight: 100;
+    font-family: ${Pallete.font_family};
 `;
 
-function foo() {
-    console.log("fofo asdnakjsn");
-}
-
-const ImageDisplay = (props) => {
+const ImageDisplay = ({image, text}) => {
     return (
         <StyledImageDisplay>
-            <StyledImage src={props.image} alt="image"></StyledImage>
-            <StyledText id="ImgDisp--text">
-                {props.text}
-            </StyledText>
+            <StyledImage src={image} alt="image"></StyledImage>
+                <StyledText id="ImgDisp--text">
+                    {text}
+                </StyledText>
         </StyledImageDisplay>
     )
 }

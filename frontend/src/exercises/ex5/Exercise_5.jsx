@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './Exercise_5.styled.css';
 import { styled } from 'styled-components';
 import { useState } from "react";
@@ -8,14 +8,14 @@ import SqrButton from "../../components/SqrButton";
 const StyledTextDisplay = styled.div`
     display: flex;
 
-    font-size: 1000%;
-    /* font-family: monospace; */
+    font-size: 800%;
+    font-family: poppins;
 
-    min-height: 230px;
+    min-height: 200px;
     min-width: 300px;
 
-    margin-bottom: 40px;
-    margin-top: 10px;
+    /* margin-bottom: 40px; */
+    /* margin-top: 4px; */
     
     .Ex5--chosen-option {
         text-align: center;
@@ -26,16 +26,15 @@ const StyledTextDisplay = styled.div`
 
 
 const OptionButton = ({func, title, setCurrOption, setActive, currActive, btnId}) => {
-    const [value, setValue] = useState(title);
     const changeOption = () => {
-        setCurrOption(value);
+        setCurrOption(title);
         func();
     }
     return (
         <SqrButton btnId={btnId} 
                 setActive={setActive} 
                 currActive={currActive} 
-                title={value || " "} 
+                title={title || " "} 
                 func={changeOption}/>
     )
 };
@@ -87,28 +86,34 @@ const optionsData = {
     ]
 };
 
-const Exercise_5 = ({data}) => {
-    const [chosenOption, setChosenOption] = useState(" ");
-    const [currActive, setCurrActive] = useState('');
-    const options = optionsData.options;
-    const ans = optionsData.ans;
-    const incompleteText = [];
-    for (const char of optionsData.incompleteText) {
-        incompleteText.push(char);
-    }
+const Exercise_5 = ({func, incompleteText, optionsArray, reset}) => {
+    const [chosenOption, setChosenOption] = useState(" "); // Display Text
+    const [currActive, setCurrActive] = useState(''); // Button Text
+
+    useEffect(() => {
+        setCurrActive('');
+        setChosenOption(" ");
+    }, [reset])
+
+    useEffect(() => {
+        if (chosenOption !== " ") {
+            func(chosenOption)   
+        }
+    }, [chosenOption])
+
     return (
         <div className="Ex5--container">
             <div className="Ex5--display-container">
-                <TextDisplay currOption={chosenOption} incompleteText={optionsData.incompleteText}/>
+                <TextDisplay currOption={chosenOption} incompleteText={incompleteText}/>
             </div>
             <div className="Ex5--buttons-container">
-                {options.map((data, dataI) => (
+                {optionsArray.map((data, dataI) => (
                     <OptionButton btnId={`op${dataI}`}
                                 setActive={setCurrActive}
                                 currActive={currActive}
                                 key={dataI} 
-                                title={data.title} 
-                                func={data.func} 
+                                title={data} 
+                                func={() => {}} 
                                 setCurrOption={setChosenOption}/>
                 ))}
             </div>

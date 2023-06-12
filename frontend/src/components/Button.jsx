@@ -1,34 +1,42 @@
 import React from "react";
 import { styled } from "styled-components";
 
+import Pallete from "./GlobalColourPallete";
 
 const StyledButton = styled.input`
-    padding-inline: 90px;
-    padding-block: 20px;
+    padding-inline: 10px;
+    padding-block: 13px;
 
-    font-family: monospace;
+    min-width: 250px;
+
+    font-family: poppins;
     font-weight: 500;
-    font-size: 160%;
-    color: rgb(100, 100, 100);
+    font-size: 1.5rem;
+    color: ${Pallete.text.default};
 
-    border: 2px solid grey;
+    border: 2px solid ${Pallete.footer.checkButton.border_shadow};
     border-radius: 20px;
 
-    box-shadow: 2px 2px grey;
+    box-shadow: 0px 2px ${Pallete.footer.checkButton.border_shadow};
     transition: all 0.2s;
 
-    background-color: white;
+    background-color: ${Pallete.currWhite};
 
     &:hover {
-        /* background-color: rgba(224, 224, 224, 0.671); */
-        border-color: rgb(197, 0, 77);
-        color: rgb(62, 62, 62);
+        background-color: ${Pallete.footer.checkButton.hover_active};
+        color: ${Pallete.text.default};
     }
 
     &:active {
-        background-color: #b9b9b9b0;
-        box-shadow: 0px 0px rgb(35, 137, 171);;
-        transform: translateY(4px);
+        background-color: ${Pallete.footer.checkButton.hover_active};
+        box-shadow: 0px 0px;
+        transform: translateY(2px);
+    }
+
+    &.disabled-btn {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.4;
     }
 
     @media (max-width: 600px) {
@@ -45,18 +53,10 @@ const StyledButton = styled.input`
     }
 `
 
-const Button = ({title, setFooter, checkAnswer}) => {
-    const checkIfAnswerCorrect = () => {
-        if (checkAnswer) {
-            setFooter("correct");
-            console.log("Is Correct!")
-        } else {
-            setFooter("incorrect");
-            console.log("INCORRECT!")
-        }
-    }
+const Button = ({title, disabled, func}) => {
     return (
-        <StyledButton type="button" value={title} onClick={checkIfAnswerCorrect}/>
+        <StyledButton type="button" value={title} onClick={func} 
+            className={disabled ? "disabled-btn": ""}/>
     )
 }
 

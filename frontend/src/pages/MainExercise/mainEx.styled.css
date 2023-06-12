@@ -3,19 +3,23 @@
     justify-content: space-between;
     flex-direction: column;
 
+    /* background-color: rgb(103, 60, 79); */
+
     height: 100vh;
 }
 
 .MainEx--tile {
     /* padding-top: 0px; */
-    padding-bottom: 40px;
-    padding-left: 30%;
+    padding: 20px;
+    font-family: 'poppins';
     font-weight: 500;
     font-size: 180%;
+    text-align: center;
 }
 
+
+
 .MainEx--container {
-    background-color: rgb(247, 255, 247);
     /* min-height: 400px; */
     margin-bottom: 40px;
     display: flex;

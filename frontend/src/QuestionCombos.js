@@ -1,0 +1,170 @@
+const vowels = [['अ', 'a'],
+    ['आ', 'aa'],
+    ['इ', 'i'],
+    ['ई', 'ii'],
+    ['उ', 'u'],
+    ['ऊ', 'uu'],
+    ['ऋ', 'tri'],
+    ['ए', 'e'],
+    ['ऐ', 'ai'],
+    ['ओ', 'o'],
+    ['औ', 'au'],
+    ['अं', 'an']];
+
+const words = [
+    ['आकाश', 'aakaash', 'sky'],
+    ['आवड', 'aavd', 'like'],
+    ['आसा', 'aasa', 'hope'],
+    ['एक', 'ek', 'one'],
+    ['ईचर', 'echar', 'pickle'],
+    ['ओस', 'os', 'dew'],
+    ['उमाळ', 'umaal', 'rain'],
+    ['ऊर', 'oor', 'village'],
+    ['एका', 'eka', 'one (feminine)'],
+    ['अशी', 'ashi', 'like this'],
+];
+
+const words2 = [
+    ['आकाश', 'aakaash', 'sky'],
+    ['आवड', 'aavd', 'like'],
+    ['आसा', 'aasa', 'hope'],
+    ['एक', 'ek', 'one'],
+    ['ईचर', 'echar', 'pickle'],
+    ['ओस', 'os', 'dew'],
+    ['उमाळ', 'umaal', 'rain'],
+    ['ऊर', 'oor', 'village'],
+    ['एका', 'eka', 'one (feminine)'],
+    ['अशी', 'ashi', 'like this'],
+    ['आभास', 'aabhaas', 'illusion'],
+    ['आदर', 'aadar', 'respect'],
+    ['आसर', 'aasar', 'occasion'],
+    ['इंद्रिय', 'indriya', 'senses'],
+    ['ईचव', 'eechav', 'to remember'],
+    ['उदास', 'udaas', 'sad'],
+    ['ऊर्जा', 'oorja', 'energy'],
+    ['एकत्र', 'ekatr', 'together'],
+    ['अंतर', 'antar', 'difference'],
+    ['अनुभव', 'anubhav', 'experience'],
+  ];  
+  
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+const Ex1_PromptGen = () => {
+    const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
+    const transliterationArray = shuffleArray([correct[1], second[1], third[1]]);
+    return {
+        "correct_option": correct[1],
+        "displayCharacter": correct[0],
+        "optionsArray": transliterationArray,
+        "answer_description": `Answer is ${correct[0]}`
+    };
+}
+
+const Ex2_PromptGen = () => {
+    const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
+    const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
+    const imageSrc = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
+    return {
+        "correctOption": correct[0],
+        "optionsArray": transliterationArray,
+        "imgSrc": imageSrc,
+        "answer_description": `Answer is ${correct[0]}`
+    };
+}
+
+const Ex4_PromptGen = () => {
+    const soundSrc = false;
+    const correctOrder = ["ओ", "ई", "अं", "ए"];
+    const optionsArray = shuffleArray(["ओ", "ई", "अं", "ए"]);
+    return {
+        "sound": soundSrc,
+        "correctOrder": correctOrder,
+        "optionsArray": optionsArray,
+        "answer_description": `Correct Order: ${correctOrder[0]} - ${correctOrder[1]} - ${correctOrder[2]} - ${correctOrder[3]}`
+    };
+}
+
+const Ex5_PromptGen = () => {
+    const word_extra = words2[Math.floor(Math.random() * words2.length)]
+    const word = word_extra[0];
+    const correctChar = word[0];
+    const incompleteText = word.slice(1);
+    let second = vowels[Math.floor(Math.random() * vowels.length)];
+    while (second[0] === word[0]) {
+        second = vowels[Math.floor(Math.random() * vowels.length)];
+    }
+
+    let third = vowels[Math.floor(Math.random() * vowels.length)];
+    while (third[0] === word[0] || third[0] === second[0]) {
+        third = vowels[Math.floor(Math.random() * vowels.length)];
+    }
+
+    let fourth = vowels[Math.floor(Math.random() * vowels.length)];
+    while (fourth[0] === word[0] || fourth[0] === second[0] || fourth[0] === third[0]) {
+        fourth = vowels[Math.floor(Math.random() * vowels.length)];
+    }
+    const options = [word[0], second[0], third[0], fourth[0]];
+    return {
+        "correctOption": correctChar,
+        "incompleteText": incompleteText,
+        "optionsArray": shuffleArray(options),
+        "answer_description": `${word_extra[0]} (${word_extra[1]}) means '${word_extra[2]}'`
+    };
+}
+
+const Ex6_PromptGen = () => {
+    const soundSrc = false;
+    const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
+    const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
+    return {
+        "sound": soundSrc,
+        "optionsArray": transliterationArray,
+        "correctOption": correct[0],
+        "answer_description": `Sound of ${correct[0]}`
+    }
+}
+
+const ExerciseDataGen = {
+    "Ex1": {
+        "num": 1,
+        "getData": Ex1_PromptGen
+    },
+    "Ex2": {
+        "num": 2,
+        "getData": Ex2_PromptGen
+    },
+    "Ex4": {
+        "num": 4,
+        "getData": Ex4_PromptGen
+    },
+    "Ex5": {
+        "num": 5,
+        "getData": Ex5_PromptGen
+    },
+    "Ex6": {
+        "num": 6,
+        "getData": Ex6_PromptGen
+    }
+}
+
+let ExOptions = [ExerciseDataGen.Ex5];
+// 4 of these plus 6 random => total 10
+const randomExpOps = [];
+for (let index = 0; index < 6; index++) {
+    randomExpOps.push(ExOptions[Math.floor(Math.random() * ExOptions.length)]);
+}
+ExOptions = [...randomExpOps, ...ExOptions];
+
+const getRandomEx = () => {
+    const ex = ExOptions[Math.floor(Math.random() * ExOptions.length)];
+    return [ex.num, ex.getData()];
+}
+
+// Generate data round-wise. Each round contains 10 Exercises
+export {getRandomEx};

@@ -32,23 +32,30 @@
 
 @media (max-width: 600px) {
     .Ex4--container {
-        display: flex;
         flex-direction: column-reverse;
-        justify-content: space-evenly;
+        justify-content: center;
+
+        gap: 30px;
     }
 
     .Ex4--right-container {
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
-    
-        min-width: 10px;
+        justify-content: center;
     }
 
     .Ex4--answers-container {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .Ex4--soundButton-container {
+        max-width: 100%;
+    }
+
+    .Ex4--buttons-container {
         display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        /* gap: 5%; */
+        flex-direction: column;
+        gap: 3px;
     }
 }
