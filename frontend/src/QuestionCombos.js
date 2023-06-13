@@ -167,4 +167,5 @@ const getRandomEx = () => {
 }
 
 // Generate data round-wise. Each round contains 10 Exercises
-export {getRandomEx};
+// export {getRandomEx};
+export {ExerciseDataGen}

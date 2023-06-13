@@ -5,6 +5,7 @@ import GlobalStyles from "../../components/GlobalStyles.styled";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ScorePage from "../ScorePage/ScorePage";
 
 import Exercise_1 from "../../exercises/ex1/Exercise1";
 import Exercise_2 from "../../exercises/ex2/Exercise_2";
@@ -14,6 +15,10 @@ import Exercise_6 from '../../exercises/ex6/Exercise_6';
 
 import sample_logo2 from '../../assets/sample_logo2.png';
 import sampleSound from '../../assets/sampleSound.mp3';
+
+import correct_answer from '../../assets/correct_answer.wav';
+import wrong_answer from '../../assets/wrong_answer.wav';
+import wrong_answer2 from '../../assets/wrong_answer2.mp3';
 
 const PageText = {
     "title": "No Question given",
@@ -176,10 +181,107 @@ const Exercise6_W = ({data, setIsCorrect, reset}) => {
     )
 };
 
-import { getRandomEx } from "../../QuestionCombos";
-let [initNum, initData] = getRandomEx();
+const Footer_Ex = ({bottomText_1, bottomText_2, selectedOption, setNextExState, prevExState}) => {
+    const [isDisabled, setDisabled] = useState(false);
+    const [footerCorrect, setFooterCorrect] = useState("inactive");
+    const [footerData, setFooterData] = useState(
+        {
+            "footerState": footerCorrect,
+            "changeFooterColour": true,
+            "button_disabled": true,
+            "bottom_text": bottomText_1,
+            "button_text": "check",
+        }
+    )
 
-const MainEx = () => {
+    useEffect(() => {
+        if (selectedOption !== "" && selectedOption !== " ") {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": false
+            }))
+        } else {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": true
+            }));
+        }
+    }, [selectedOption]);
+
+    const PlaySound = (audioPath) => {
+        setDisabled(true);
+        if (!isDisabled) {
+            const audio = new Audio(audioPath);
+            audio.play();
+            setDisabled(true);
+        
+            audio.onended = () => {
+                setDisabled(false);
+            };
+        }
+    }
+
+    const checkIfAnswerCorrect = () => {
+        // selectedOption => "", true, false
+        if (selectedOption) {
+            setFooterCorrect("correct");
+            PlaySound(correct_answer);
+
+            setFooterData(prevState => ({
+                ...prevState,
+                "footerState": "correct",
+                "bottom_text": `Correct | ${bottomText_2}`,
+                "button_text": "next"
+            }))
+
+        } else {
+            setFooterCorrect("incorrect");
+
+            PlaySound(wrong_answer2);
+            setFooterData(prevState => ({
+                ...prevState,
+                "footerState": "incorrect",
+                "bottom_text": `Wrong | ${bottomText_2}`,
+                "button_text": "next"
+            }))
+        }
+    }
+
+    const goToNextPage = () => {
+        setNextExState({
+            "count": prevExState.count += 1,
+            "score": footerCorrect === "correct" ? prevExState.score += 1 : prevExState.score,
+            "change": true
+        });
+        setFooterCorrect("inactive");
+        setFooterData(prevState => ({
+            ...prevState,
+            "footerState": "inactive",
+            "bottom_text": bottomText_1,
+            "button_text": "check"
+        }))
+    }
+
+    return (
+        <Footer 
+            footerData={footerData}
+            func_1={checkIfAnswerCorrect}
+            func_2={goToNextPage}
+        />
+    )
+}
+
+import { ExerciseDataGen } from "../../QuestionCombos";
+
+const MainEx = ({exNum}) => {
+    const getRandomEx = () => {
+        let exMain = ExerciseDataGen[exNum];
+        let [num, data] = [exMain.num, exMain.getData()];
+        return [num, data];
+    }
+
+    let [initNum, initData] = getRandomEx(exNum);
+
     const [isCorrect, setIsCorrect] = useState("");
     const [changeEx, setChangeEx] = useState({"count": 0, "score": 0, "change": false});
     const [exerciseData, setExerciseData] = useState({"ExNum": initNum, "data": initData});
@@ -187,6 +289,7 @@ const MainEx = () => {
     const [currentExercise, setCurrentExercise] = useState(<Exercise1_W
                                                                 data={exerciseData.data}
                                                                 setIsCorrect={setIsCorrect}/>);
+    const [scoreDisplay, setScoreDisplay] = useState(false);
 
     const switchEx = (num) => {
         switch (num) {
@@ -241,11 +344,10 @@ const MainEx = () => {
 
     useEffect(() => {
         if (changeEx.change) {
-            if (changeEx.count >= 5) {
-                alert(`Score is ${changeEx.score}/5`);
+            if (changeEx.count % 5 === 0) {
+                setScoreDisplay(true);
             } else {
                 let [ExNum, ExData] = getRandomEx();
-                console.log(ExData)
                 setResetButtons(!resetButtons);
                 setExerciseData({
                     "ExNum": ExNum, 
@@ -260,23 +362,46 @@ const MainEx = () => {
         }
     }, [changeEx]);
 
-    return (
+    const ExerciseBlock = (
         <div id='MainEx--root'>
             <Header logo={sample_logo2}></Header>
 
             {currentExercise}
 
             <div className="MainEx--footer">
-                <Footer bottomText={PageText.footer_text} 
-                        button_text={PageText.footer_button_text} 
-                        checkAnswer={isCorrect} 
-                        answer_description={exerciseData.data.answer_description} 
-                        nextExState={setChangeEx}
-                        prevExState={changeEx}>
-                </Footer>
+                <Footer_Ex bottomText_1={"Bottom Text"}
+                        bottomText_2={exerciseData.data.answer_description}
+                        setNextExState={setChangeEx}
+                        prevExState={changeEx}
+                        selectedOption={isCorrect}
+                />
+            </div>
+        </div>
+    );
+
+    const ScoreBlock = (
+        <div id='MainEx--root'>
+            <Header logo={sample_logo2}></Header>
+
+            <ScorePage setScoreDisplay={setScoreDisplay} 
+                    score={changeEx.score} 
+                    maxScore={changeEx.count}
+                    setScoreState={setChangeEx}
+                    mainPath={"/"}
+                    />
+
+            <div className="MainEx--footer">
+                <Footer_Ex bottomText_1={"Bottom Text"}
+                        bottomText_2={exerciseData.data.answer_description}
+                        setNextExState={setChangeEx}
+                        prevExState={changeEx}
+                        selectedOption={""}
+                />
             </div>
         </div>
     )
+
+    return !scoreDisplay ? ExerciseBlock : ScoreBlock;
 };
 
 export default MainEx;

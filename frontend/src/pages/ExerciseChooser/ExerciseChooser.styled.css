@@ -1,0 +1,46 @@
+#exChooser--root {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    /* background-color: rgb(103, 60, 79); */
+
+    height: 100vh;
+}
+
+.exChooser--title {
+    /* padding-top: 0px; */
+    font-family: poppins;
+    font-weight: 500;
+    font-size: 140%;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+.exChooser--options-container {
+    /* margin-bottom: 40px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+@media (max-width: 600px) {
+    .exChooser--options-container {
+        min-height: none;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 3px;
+    }
+
+    .exChooser--title {
+        padding-left: 0px;
+        padding-top: 20px;
+        text-align: center;
+        font-size: 150%;
+    }
+}

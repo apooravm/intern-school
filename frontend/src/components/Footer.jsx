@@ -84,77 +84,38 @@ const StyledText = styled.div`
     }
 `;
 
-// checkAnswer bool
-const Footer = ({bottomText, checkAnswer, colours, answer_description, nextExState, prevExState}) => {
-    const [footerCorrect, setFooterCorrect] = useState("inactive");
-    const [buttonText, setButtonText] = useState("check");
-    const [btnActive, setBtnActive] = useState(true);
-    const [bottomFooterText, setBottomText] = useState(bottomText);
-    const [isDisabled, setDisabled] = useState(false);
-
-    const PlaySound = (audioPath) => {
-        setDisabled(true);
-        if (!isDisabled) {
-            const audio = new Audio(audioPath);
-            audio.play();
-            setDisabled(true);
+// selectedOption bool
+/*
+        Footer does
+        if selectedOption === true/false => enable/disable button
+        when button enabled => if pressed => if selectedOption === true/false => setFooterCorrect(correct/incorrect)
+        after button pressed => change func
         
-            audio.onended = () => {
-                setDisabled(false);
-            };
-        }
-    }
+        should take in
+        selectedOption
+        buttonFunc_1 => checkIfAnswerCorrect
+        buttonFunc_2 => go to next page
+        const [footerCorrect, setFooterCorrect] = useState("inactive");
+        const [buttonText, setButtonText] = useState("check");
+        const [btnActive, setBtnActive] = useState(true);
+        const [bottomFooterText, setBottomText] = useState(bottomText);
+    */
+const Footer = ({footerData, func_1, func_2}) => {
+   const [data, setData] = useState(footerData);
 
-    useEffect(() => {
-        if (checkAnswer !== "" && checkAnswer !== " ") {
-            setBtnActive(false);
-        } else {
-            setBtnActive(true);
-        }
-    }, [checkAnswer])
-
-    useEffect(() => {
-        if (footerCorrect === "correct") {
-            PlaySound(correct_answer);
-            setButtonText("next");
-            setBottomText(`Correct | ${answer_description}`);
-
-        } else if (footerCorrect === "incorrect") {
-            PlaySound(currWrong);
-            setButtonText("next");
-            setBottomText(`Wrong | ${answer_description}`);
-        }
-    }, [footerCorrect]);
-
-    const checkIfAnswerCorrect = () => {
-        // checkAnswer => "", true, false
-        if (checkAnswer) {
-            setFooterCorrect("correct");
-        } else {
-            setFooterCorrect("incorrect");
-        }
-    };
-
-    const goToNextPage = () => {
-        nextExState({
-            "count": prevExState.count += 1,
-            "score": footerCorrect === "correct" ? prevExState.score += 1 : prevExState.score,
-            "change": true
-        });
-        setFooterCorrect("inactive");
-        setButtonText("check");
-        setBottomText(bottomText);
-    }
+   useEffect(() => {
+        setData(footerData);
+   }, [footerData])
     
     return (
-        <StyledFooter footer_state={footerCorrect} {...colours}>
-                    <StyledText change_text_colour={footerCorrect === "incorrect" ? "true" : "false"}>{bottomFooterText}</StyledText>
+        <StyledFooter footer_state={data.footerState} >
+                    <StyledText change_text_colour={data.changeFooterColour ? data.footerState === "incorrect" ? "true" : "false" : "false"}>
+                        {data.bottom_text}
+                    </StyledText>
                     <Button
-                        title={buttonText}
-                        checkAnswer={checkAnswer}
-                        setFooter={setFooterCorrect}
-                        disabled={btnActive}
-                        func={footerCorrect !== "correct" && footerCorrect !== "incorrect" ? checkIfAnswerCorrect : goToNextPage}
+                        title={data.button_text}
+                        disabled={data.button_disabled}
+                        func={data.footerState !== "correct" && data.footerState !== "incorrect" ? func_1 : func_2}
                     />
         </StyledFooter>
     )
