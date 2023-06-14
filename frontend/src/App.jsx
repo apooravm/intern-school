@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import './App.styled.css';
-import { styled } from "styled-components";
 import { Route, Routes, redirect } from "react-router-dom";
 
+import VowelsPage from "./pages/VowelsPage/VowelsPage";
 import ExerciseChooser from "./pages/ExerciseChooser/ExerciseChooser";
 import MainEx from "./pages/MainExercise/mainEx";
 
@@ -17,10 +17,12 @@ const App = () => {
     }, [selectedExercise]);
 
     const exerciseChooser = <ExerciseChooser setExercise={setSelectedExercise}/>;
+    const vowelsDisplay = <VowelsPage />
 
     return (
         <Routes>
-            <Route path="/" element={exerciseChooser} />
+            <Route path="/vowels" element={vowelsDisplay} />
+            <Route path="/vowelsExercises" element={exerciseChooser} />
             <Route path="/ex1" element={<MainEx exNum={"Ex1"}/>} />
             <Route path="/ex2" element={<MainEx exNum={"Ex2"}/>} />
             <Route path="/ex4" element={<MainEx exNum={"Ex4"}/>} />

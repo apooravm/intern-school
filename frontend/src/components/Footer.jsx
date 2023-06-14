@@ -63,9 +63,11 @@ const StyledFooter = styled.footer`
 
 const StyledText = styled.div`
     font-family: poppins;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    min-width: 500px;
+    min-width: 40%;
+    max-width: 20rem;
+    overflow: hidden;
     text-align: left;
     color: ${Pallete.default ? 'rgb(0, 0, 0)' : 'rgb(255, 255, 255)'};
     ${({ change_text_colour }) => 
@@ -79,7 +81,7 @@ const StyledText = styled.div`
     @media (max-width: 600px) {
         padding-bottom: 20px;
         min-width: 100px;
-        font-size: 140%;
+        font-size: 120%;
         text-align: center;
     }
 `;

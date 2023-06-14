@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import './mainEx.styled.css';
 import airbnbLogo from '../../assets/airbnb.svg';
-import GlobalStyles from "../../components/GlobalStyles.styled";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -23,7 +22,12 @@ import wrong_answer2 from '../../assets/wrong_answer2.mp3';
 const PageText = {
     "title": "No Question given",
     "footer_text": "Bottom Footer text",
-    "footer_button_text": "next"
+    "footer_button_text": "next",
+    "Ex1": "Identify the correct english transliteration",
+    "Ex2": "Object in the image starts with the character...",
+    "Ex4": "Order the given according to the sound",
+    "Ex5": "Complete the given word",
+    "Ex6": "Identify the character from the given sound"
 }
 
 const mango = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
@@ -34,7 +38,7 @@ const Exercise1_W = ({data, setIsCorrect, reset}) => {
     const correct_option= data.correct_option; 
     const options_array= data.optionsArray; 
     
-    const title = false || PageText.title;
+    const title = PageText.Ex1 || PageText.title;
     const char = characterDisplayed;
 
     function foo(chosenOption) {
@@ -63,7 +67,7 @@ const Exercise2_W = ({data, setIsCorrect, reset}) => {
     const correct_option= data.correctOption; 
     const optionsArray= data.optionsArray; 
 
-    const title = false || PageText.title;
+    const title = PageText.Ex2 || PageText.title;
     const image = displayImage || mango;
 
     function setResult(chosenOption) {
@@ -91,7 +95,7 @@ const Exercise4_W = ({data, setIsCorrect, reset}) => {
     const correct_order = data.correctOrder; 
     const optionsArray = data.optionsArray;
 
-    const title = "Order the given according to the sound!" || PageText.title;
+    const title = PageText.Ex4 || PageText.title;
 
     function checkOrder(inputStackArray) {
         const checkArrayNull = () => {
@@ -132,7 +136,7 @@ const Exercise5_W = ({data, setIsCorrect, reset}) => {
     const optionsArray = data.optionsArray;
     // console.log(optionsArray)
 
-    const title = false || PageText.title;
+    const title = PageText.Ex5 || PageText.title;
     function checkResult(chosenOption) {
         if (chosenOption === correct_option) {
             setIsCorrect(true);
@@ -159,7 +163,7 @@ const Exercise6_W = ({data, setIsCorrect, reset}) => {
     const correct_option = data.correctOption; 
     const optionsArray = data.optionsArray; 
 
-    const title = false || PageText.title;
+    const title = PageText.Ex6 || PageText.title;
 
     function checkResult(chosenOption) {
         if (chosenOption === correct_option) {
@@ -180,6 +184,42 @@ const Exercise6_W = ({data, setIsCorrect, reset}) => {
         </div>
     )
 };
+
+const Footer_Score = ({bottomText}) => {
+    const selectedOption = ""; // disable button
+    const [footerData, setFooterData] = useState(
+        {
+            "footerState": "inactive",
+            "changeFooterColour": true,
+            "button_disabled": true,
+            "bottom_text": bottomText,
+            "button_text": "next",
+        }
+    )
+
+    useEffect(() => {
+        if (selectedOption !== "" && selectedOption !== " ") {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": false
+            }))
+        } else {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": true
+            }));
+        }
+    }, [selectedOption]);
+
+    return (
+        <Footer 
+            footerData={footerData}
+            func_1={() => {}}
+            func_2={() => {}}
+        />
+    )
+
+}
 
 const Footer_Ex = ({bottomText_1, bottomText_2, selectedOption, setNextExState, prevExState}) => {
     const [isDisabled, setDisabled] = useState(false);
@@ -369,7 +409,7 @@ const MainEx = ({exNum}) => {
             {currentExercise}
 
             <div className="MainEx--footer">
-                <Footer_Ex bottomText_1={"Bottom Text"}
+                <Footer_Ex bottomText_1={exerciseData.data.exercise_hint}
                         bottomText_2={exerciseData.data.answer_description}
                         setNextExState={setChangeEx}
                         prevExState={changeEx}
@@ -386,16 +426,12 @@ const MainEx = ({exNum}) => {
             <ScorePage setScoreDisplay={setScoreDisplay} 
                     score={changeEx.score} 
                     maxScore={changeEx.count}
-                    setScoreState={setChangeEx}
-                    mainPath={"/"}
+                    mainPath={"/vowels"}
                     />
 
             <div className="MainEx--footer">
-                <Footer_Ex bottomText_1={"Bottom Text"}
-                        bottomText_2={exerciseData.data.answer_description}
-                        setNextExState={setChangeEx}
-                        prevExState={changeEx}
-                        selectedOption={""}
+                <Footer_Score 
+                    bottomText={`End of ${changeEx.count}th Question!`}
                 />
             </div>
         </div>

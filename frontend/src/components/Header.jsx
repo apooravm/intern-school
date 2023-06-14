@@ -27,9 +27,9 @@ const StyledImage = styled.img`
     }
 `;
 
-const Header = ({logo, colours}) => {
+const Header = ({logo}) => {
     return (
-        <StyledHeader {...colours}>
+        <StyledHeader>
             <StyledImage src={logo} alt="airbnb logo" />
         </StyledHeader>
 

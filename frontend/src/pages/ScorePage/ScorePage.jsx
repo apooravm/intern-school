@@ -25,7 +25,7 @@ const StyledScoreDisplay = styled.div`
     }
 `;
 
-const ScorePage = ({setScoreDisplay, score, maxScore, setScoreState, mainPath}) => {
+const ScorePage = ({setScoreDisplay, score, maxScore, mainPath}) => {
     const navigate = useNavigate();
     const clickHandlerContinue = () => {
         setScoreDisplay(false);

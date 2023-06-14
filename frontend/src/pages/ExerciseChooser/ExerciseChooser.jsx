@@ -180,7 +180,7 @@ const ExerciseChooser = ({setExercise}) => {
                         currActive={selectedExercise}/>
                 ))}
             </div>
-            <Footer_Chooser bottom_text={"Characters are randomized!"} 
+            <Footer_Chooser bottom_text={"Learn Konkani Vowels with the given exercises"} 
                             func={setChosenExercise} 
                             chosenOption={selectedExercise.value}/>
         </div>

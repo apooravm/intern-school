@@ -1,51 +1,4 @@
-const vowels = [['अ', 'a'],
-    ['आ', 'aa'],
-    ['इ', 'i'],
-    ['ई', 'ii'],
-    ['उ', 'u'],
-    ['ऊ', 'uu'],
-    ['ऋ', 'tri'],
-    ['ए', 'e'],
-    ['ऐ', 'ai'],
-    ['ओ', 'o'],
-    ['औ', 'au'],
-    ['अं', 'an']];
-
-const words = [
-    ['आकाश', 'aakaash', 'sky'],
-    ['आवड', 'aavd', 'like'],
-    ['आसा', 'aasa', 'hope'],
-    ['एक', 'ek', 'one'],
-    ['ईचर', 'echar', 'pickle'],
-    ['ओस', 'os', 'dew'],
-    ['उमाळ', 'umaal', 'rain'],
-    ['ऊर', 'oor', 'village'],
-    ['एका', 'eka', 'one (feminine)'],
-    ['अशी', 'ashi', 'like this'],
-];
-
-const words2 = [
-    ['आकाश', 'aakaash', 'sky'],
-    ['आवड', 'aavd', 'like'],
-    ['आसा', 'aasa', 'hope'],
-    ['एक', 'ek', 'one'],
-    ['ईचर', 'echar', 'pickle'],
-    ['ओस', 'os', 'dew'],
-    ['उमाळ', 'umaal', 'rain'],
-    ['ऊर', 'oor', 'village'],
-    ['एका', 'eka', 'one (feminine)'],
-    ['अशी', 'ashi', 'like this'],
-    ['आभास', 'aabhaas', 'illusion'],
-    ['आदर', 'aadar', 'respect'],
-    ['आसर', 'aasar', 'occasion'],
-    ['इंद्रिय', 'indriya', 'senses'],
-    ['ईचव', 'eechav', 'to remember'],
-    ['उदास', 'udaas', 'sad'],
-    ['ऊर्जा', 'oorja', 'energy'],
-    ['एकत्र', 'ekatr', 'together'],
-    ['अंतर', 'antar', 'difference'],
-    ['अनुभव', 'anubhav', 'experience'],
-  ];  
+import { vowels, words, words2 } from "./StaticData";
   
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -59,6 +12,7 @@ const Ex1_PromptGen = () => {
     const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
     const transliterationArray = shuffleArray([correct[1], second[1], third[1]]);
     return {
+        "exercise_hint": "Notice the double letters!",
         "correct_option": correct[1],
         "displayCharacter": correct[0],
         "optionsArray": transliterationArray,
@@ -71,6 +25,7 @@ const Ex2_PromptGen = () => {
     const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
     const imageSrc = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
     return {
+        "exercise_hint": "remember to pronounce the name before picking your answer",
         "correctOption": correct[0],
         "optionsArray": transliterationArray,
         "imgSrc": imageSrc,
@@ -83,6 +38,7 @@ const Ex4_PromptGen = () => {
     const correctOrder = ["ओ", "ई", "अं", "ए"];
     const optionsArray = shuffleArray(["ओ", "ई", "अं", "ए"]);
     return {
+        "exercise_hint": "listen carefully for each sound",
         "sound": soundSrc,
         "correctOrder": correctOrder,
         "optionsArray": optionsArray,
@@ -111,6 +67,7 @@ const Ex5_PromptGen = () => {
     }
     const options = [word[0], second[0], third[0], fourth[0]];
     return {
+        "exercise_hint": "try to remember if you have heard of the word in your previous exercises",
         "correctOption": correctChar,
         "incompleteText": incompleteText,
         "optionsArray": shuffleArray(options),
@@ -123,6 +80,7 @@ const Ex6_PromptGen = () => {
     const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
     const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
     return {
+        "exercise_hint": "be mindful of the difference in the sounds of similar characters", 
         "sound": soundSrc,
         "optionsArray": transliterationArray,
         "correctOption": correct[0],

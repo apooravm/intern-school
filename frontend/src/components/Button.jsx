@@ -42,14 +42,13 @@ const StyledButton = styled.input`
     @media (max-width: 600px) {
         width: 100%;
         min-width: auto;
+        font-size: 1.6rem;
 
-        font-size: 160%;
-
-        padding-block: 20px;
+        padding-block: 15px;
 
         border-radius: 5px;
 
-        transition: all 0.01s;
+        transition: all 0.09s;
     }
 `
 

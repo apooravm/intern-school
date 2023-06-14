@@ -15,7 +15,6 @@ import OptionsButton from '../../components/OptionsButton';
 import ImageDisplay from '../../components/ImageDisplay';
 import ImageButtonDisplay from '../../components/ImageButtonDisplay';
 
-import Intro1 from '../Intro2/Intro.jsx';
 
 import Exercise_1 from '../../exercises/ex1/Exercise1';
 import Exercise_2 from '../../exercises/ex2/Exercise_2';
