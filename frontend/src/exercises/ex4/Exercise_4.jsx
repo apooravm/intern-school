@@ -4,20 +4,9 @@ import { styled } from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-
 import OptionsButton from "../../components/OptionsButton";
 
 import Pallete from "../../components/GlobalColourPallete";
-
-const colourPallete = {
-    "buttonBorder": 'rgb(67, 39, 52)',
-    "textNormal": 'rgb(109, 109, 109)',
-    "textHighlighted": 'rgb(87, 87, 87)',
-    "bgHover": 'rgb(224, 237, 244)',
-    "bgActive": 'rgb(219, 219, 219)'
-}
 
 const StyledInputDiv = styled.div`
     text-align: center;

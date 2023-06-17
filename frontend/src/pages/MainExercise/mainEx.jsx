@@ -11,6 +11,7 @@ import Exercise_2 from "../../exercises/ex2/Exercise_2";
 import Exercise_4 from "../../exercises/ex4/Exercise_4";
 import Exercise_5 from "../../exercises/ex5/Exercise_5";
 import Exercise_6 from '../../exercises/ex6/Exercise_6';
+import Exercise_7 from "../../exercises/ex7/Exercise_7";
 
 import sample_logo2 from '../../assets/sample_logo2.png';
 import sampleSound from '../../assets/sampleSound.mp3';
@@ -31,7 +32,6 @@ const PageText = {
 }
 
 const mango = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
-
 
 const Exercise1_W = ({data, setIsCorrect, reset}) => {
     const characterDisplayed= data.displayCharacter; 
@@ -185,6 +185,33 @@ const Exercise6_W = ({data, setIsCorrect, reset}) => {
     )
 };
 
+const Exercise7_W = ({data, setIsCorrect, reset}) => {
+    const character = data.character;
+    const title = PageText.Ex7 || PageText.title;
+
+    function checkResult(chosenOption) {
+        // change the condition if needed
+        if (chosenOption) {
+            // Condition should include setIsCorrect state setter
+            // Needed for footer
+            // Call this function with chosenOption=true if answer correct
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
+        }
+    }
+    return (
+        <div className="MainEx--container">
+            <div className="MainEx--tile">
+                {title}
+            </div>
+            <Exercise_7 character={character} 
+                        func={checkResult} 
+                        reset={reset}/>
+        </div>
+    )
+}
+
 const Footer_Score = ({bottomText}) => {
     const selectedOption = ""; // disable button
     const [footerData, setFooterData] = useState(
@@ -326,9 +353,7 @@ const MainEx = ({exNum}) => {
     const [changeEx, setChangeEx] = useState({"count": 0, "score": 0, "change": false});
     const [exerciseData, setExerciseData] = useState({"ExNum": initNum, "data": initData});
     const [resetButtons, setResetButtons] = useState(false);
-    const [currentExercise, setCurrentExercise] = useState(<Exercise1_W
-                                                                data={exerciseData.data}
-                                                                setIsCorrect={setIsCorrect}/>);
+    const [currentExercise, setCurrentExercise] = useState('');
     const [scoreDisplay, setScoreDisplay] = useState(false);
 
     const switchEx = (num) => {
@@ -368,6 +393,14 @@ const MainEx = ({exNum}) => {
             case 6:
                 setCurrentExercise(
                     <Exercise6_W 
+                        data={exerciseData.data}
+                        reset={resetButtons}
+                        setIsCorrect={setIsCorrect}/>
+                )
+                break;
+            case 7:
+                setCurrentExercise(
+                    <Exercise7_W 
                         data={exerciseData.data}
                         reset={resetButtons}
                         setIsCorrect={setIsCorrect}/>

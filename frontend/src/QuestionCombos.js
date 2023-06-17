@@ -88,6 +88,15 @@ const Ex6_PromptGen = () => {
     }
 }
 
+const Ex7_PromptGen = () => {
+    const character = vowels[Math.floor(Math.random() * vowels.length)][0];
+    return {
+        "exercise_hint": "Insert ex7 hint ./QuestionCombos.js",
+        "character": character,
+        "answer_description": `Correct Answer was ${character}`
+    }
+}
+
 const ExerciseDataGen = {
     "Ex1": {
         "num": 1,
@@ -108,20 +117,11 @@ const ExerciseDataGen = {
     "Ex6": {
         "num": 6,
         "getData": Ex6_PromptGen
+    },
+    "Ex7": {
+        "num": 7,
+        "getData": Ex7_PromptGen
     }
-}
-
-let ExOptions = [ExerciseDataGen.Ex5];
-// 4 of these plus 6 random => total 10
-const randomExpOps = [];
-for (let index = 0; index < 6; index++) {
-    randomExpOps.push(ExOptions[Math.floor(Math.random() * ExOptions.length)]);
-}
-ExOptions = [...randomExpOps, ...ExOptions];
-
-const getRandomEx = () => {
-    const ex = ExOptions[Math.floor(Math.random() * ExOptions.length)];
-    return [ex.num, ex.getData()];
 }
 
 // Generate data round-wise. Each round contains 10 Exercises

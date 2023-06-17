@@ -152,6 +152,10 @@ const exercisesAll = [
         "ex": "Ex6",
         "title": "Identify the character from the given sound"
     },
+    {
+        "ex": "Ex7",
+        "title": "Trace the Character"
+    },
 ]
 
 const ExerciseChooser = ({setExercise}) => {

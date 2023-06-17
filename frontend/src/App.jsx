@@ -28,6 +28,7 @@ const App = () => {
             <Route path="/ex4" element={<MainEx exNum={"Ex4"}/>} />
             <Route path="/ex5" element={<MainEx exNum={"Ex5"}/>} />
             <Route path="/ex6" element={<MainEx exNum={"Ex6"}/>} />
+            <Route path="/ex7" element={<MainEx exNum={"Ex7"}/>} />
             {/* {chooserYN ? exerciseChooser : <MainEx exNum={selectedExercise}/>} */}
             {/* <MainEx /> */}
         </Routes>
