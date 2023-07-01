@@ -1,4 +1,4 @@
-import { vowels, words, words2, Consonants } from "./StaticData";
+import { vowels, words, words2, Consonants, VowelSoundMapped } from "./StaticData";
   
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -32,17 +32,39 @@ const Ex1_PromptGen = (exType) => {
     }
 }
 
+// Image
+const imageQuestions = [
+    {
+        "character": 'आ',
+        "word": 'आकाश',
+        "eng": "sky",
+        "image": "https://img.freepik.com/free-photo/cloud-sky-twilight-times_74190-4017.jpg"
+    },
+    {
+        "character": 'ई',
+        "eng": "pickle",
+        "word": 'ईचर',
+        "image": "https://www.ticklingpalates.com/wp-content/uploads/2022/05/mango-pickle-500x500.jpg"
+    },
+    {
+        "character": 'आ',
+        "eng": "mango",
+        "word": 'आम',
+        "image": "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png"
+    },
+]
 const Ex2_PromptGen = (exType) => {
     if (exType === "vowels") {
-        const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
-        const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
-        const imageSrc = "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png";
+        const imgQ = imageQuestions[Math.floor(Math.random() * imageQuestions.length)];
+        const filteredVowels = vowels.filter((value) => value[0] !== imgQ.character);
+        const [second, third] = shuffleArray(filteredVowels).slice(0, 2);
+        const transliterationArray = shuffleArray([imgQ.character[0], second[0], third[0]]);
         return {
             "exercise_hint": "remember to pronounce the name before picking your answer",
-            "correctOption": correct[0],
+            "correctOption": imgQ.character[0],
             "optionsArray": transliterationArray,
-            "imgSrc": imageSrc,
-            "answer_description": `Answer is ${correct[0]}`
+            "imgSrc": imgQ.image,
+            "answer_description": `Answer is ${imgQ.character[0]} | ${imgQ.word} (${imgQ.eng})`
         };
     } else {
         
@@ -52,8 +74,9 @@ const Ex2_PromptGen = (exType) => {
 const Ex4_PromptGen = (exType) => {
     if (exType === "vowels") {
         const soundSrc = false;
-        const correctOrder = ["ओ", "ई", "अं", "ए"];
-        const optionsArray = shuffleArray(["ओ", "ई", "अं", "ए"]);
+        const [first, second, third, fourth] = shuffleArray(vowels).slice(0, 4);
+        const correctOrder = [first[0], second[0], third[0], fourth[0]];
+        const optionsArray = shuffleArray([first[0], second[0], third[0], fourth[0]]);
         return {
             "exercise_hint": "listen carefully for each sound",
             "sound": soundSrc,
@@ -104,13 +127,13 @@ const Ex6_PromptGen = (exType) => {
         const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
         return {
             "exercise_hint": "be mindful of the difference in the sounds of similar characters", 
-            "sound": soundSrc,
+            "sound": VowelSoundMapped[correct[0]],
             "optionsArray": transliterationArray,
             "correctOption": correct[0],
             "answer_description": `Sound of ${correct[0]}`
         }   
     } else {
-
+        
     }
 }
 

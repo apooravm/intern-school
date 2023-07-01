@@ -111,7 +111,7 @@ const Exercise_5 = ({func, incompleteText, optionsArray, reset}) => {
                     <OptionButton btnId={`op${dataI}`}
                                 setActive={setCurrActive}
                                 currActive={currActive}
-                                key={dataI} 
+                                key={dataI}
                                 title={data} 
                                 func={() => {}} 
                                 setCurrOption={setChosenOption}/>

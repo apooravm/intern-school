@@ -7,11 +7,12 @@ import { useEffect } from "react";
 import OptionsButton from "../../components/OptionsButton";
 
 import Pallete from "../../components/GlobalColourPallete";
+import { VowelSoundMapped } from "../../StaticData";
 
 const StyledInputDiv = styled.div`
     text-align: center;
     padding-top: 20px;
-    min-height: 110px;
+    min-height: 120px;
     min-width: 100px;
 
     font-family: monospace;
@@ -153,12 +154,14 @@ const DeleteButton = ({mainStack, setMainStack}) => {
     )
 };
 
-const SoundButton = ({sound}) => {
+const SoundButton = ({correctOrder}) => {
     const [isPaused, setIsPaused] = useState(false);
     const [isDisabled, setDisabled] = useState(false);
+    const [currPlaying, setCurrPlaying] = useState(false);
 
-    const playSound = () => {
+    const playSound = (index) => {
         setDisabled(true);
+        const sound = VowelSoundMapped[correctOrder[index]];
 
         if (!isDisabled) {
             const audio = new Audio(sound);
@@ -166,15 +169,23 @@ const SoundButton = ({sound}) => {
             setDisabled(true);
       
             audio.onended = () => {
-              setDisabled(false);
-              setIsPaused(prevState => !prevState);
+                index += 1;
+                if (index < correctOrder.length && !isPaused) {
+                    playSound(index);
+                    setDisabled(false);   
+                } else {
+                    setIsPaused(false);
+                    return;
+                }
             };
         }
     }
 
     const handleButtonClick = () => {
         setIsPaused(prevState => !prevState);
-        playSound();
+        if (!isPaused) {
+            playSound(0);   
+        }
     };
 
     return (
@@ -185,11 +196,7 @@ const SoundButton = ({sound}) => {
     );
 };
 
-const fizz = (title) => {
-    console.log(`${title} Sound!`);
-}
-
-const Exercise_4 = ({charSound, func, optionsArray, reset}) => {
+const Exercise_4 = ({func, optionsArray, reset, correctOrder}) => {
     const [currActiveId, setCurrActiveId] = useState('');
     const [globCompState, setGlobCompState] = useState({
         "optionsLength": optionsArray.length,
@@ -240,7 +247,7 @@ const Exercise_4 = ({charSound, func, optionsArray, reset}) => {
                     ))}
                 </div>
                 <div className="Ex4--soundButton-container">
-                    <SoundButton sound={charSound}/>
+                    <SoundButton correctOrder={correctOrder}/>
                     <DeleteButton mainStack={globCompState} setMainStack={setGlobCompState} />
                 </div>
             </div>

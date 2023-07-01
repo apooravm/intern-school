@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 
 import Pallete from "../../components/GlobalColourPallete";
 
-import { vowels } from "../../StaticData";
+import { vowels, VowelSoundMapped } from "../../StaticData";
 
 const StyledVowelsSqrButton = styled.button`
     padding-block: 5px;
@@ -82,6 +82,7 @@ const VowelsSqrButton = ({character, trans, func}) => {
 
 const VowelsPage = () => {
     const navigate = useNavigate();
+    const [soundIsDisabled, setSoundDisabled] = useState(false);
     const [footerData, setFooterData] = useState(
         {
             "footerState": "inactive", // inactive, correct, incorrect
@@ -91,6 +92,19 @@ const VowelsPage = () => {
             "button_text": "exercises",
         }
     )
+
+    const PlaySound = (audioPath) => {
+        setSoundDisabled(true);
+        if (!soundIsDisabled) {
+            const audio = new Audio(audioPath);
+            audio.play();
+            setSoundDisabled(true);
+        
+            audio.onended = () => {
+                setSoundDisabled(false);
+            };
+        }
+    }
 
     const footerFunc = () => {
         navigate('/vowels/exercises/');
@@ -103,7 +117,7 @@ const VowelsPage = () => {
                 {vowels.map((data, ind) => (
                     <VowelsSqrButton setActive={() => {}}
                         key={ind}
-                        func={() => {console.log(`Play Sound ${data[0]}`)}}
+                        func={() => {PlaySound(VowelSoundMapped[data[0]])}}
                         character={data[0]}
                         trans={data[1]}
                     />

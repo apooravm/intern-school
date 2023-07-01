@@ -124,6 +124,7 @@ const Exercise4_W = ({data, setIsCorrect, reset}) => {
             </div>
             <Exercise_4 charSound={sound} 
                         reset={reset} 
+                        correctOrder={correct_order}
                         func={checkOrder} 
                         optionsArray={optionsArray}/>
         </div>

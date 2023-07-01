@@ -28,6 +28,7 @@
 .Ex4--soundButton-container {
     display: flex;
     justify-content: space-evenly;
+    min-height: 80px;
 }
 
 @media (max-width: 600px) {
