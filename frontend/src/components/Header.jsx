@@ -21,7 +21,7 @@ const StyledHeader = styled.nav`
 `;
 
 const StyledImage = styled.img`
-    max-width: 50px;
+    max-width: 400px;
 
     &:hover {
         cursor: pointer;
@@ -36,7 +36,7 @@ const Header = ({logo}) => {
     const navigate = useNavigate();
     return (
         <StyledHeader>
-            <StyledImage src={logo} alt="airbnb logo" onClick={() => {navigate("/vowels")}}/>
+            <StyledImage src={"https://audiopustakam.com/assets/images/resources/audio_logo.png"} alt="audiopustakam" onClick={() => {navigate("/")}}/>
         </StyledHeader>
 
     )
