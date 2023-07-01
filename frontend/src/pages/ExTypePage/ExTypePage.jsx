@@ -63,23 +63,8 @@ const StyledVowelsTextTransliteration = styled.div`
     }
 `;
 
-const VowelsSqrButton = ({character, trans, func}) => {
-    const handleOnClick = () => {
-        func();
-    }
-    return (
-        <StyledVowelsSqrButton onClick={handleOnClick}>
-            <div className="vowelsDisplay--button-text">
-                {character}
-                <StyledVowelsTextTransliteration>
-                    {trans}
-                </StyledVowelsTextTransliteration>
-            </div>
-        </StyledVowelsSqrButton>
-    )
-}
-
 const ExTypePage = () => {
+    const [selectedExercise, setSelectedExercise] = useState({"id": '', "value": ''});
     const navigate = useNavigate();
     const [footerData, setFooterData] = useState(
         {
@@ -91,8 +76,26 @@ const ExTypePage = () => {
         }
     )
 
+    useEffect(() => {
+        if (selectedExercise.value !== "" && selectedExercise.value !== " " && selectedExercise.value !== undefined) {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": false
+            }))
+        } else {
+            setFooterData(prevState => ({
+                ...prevState,
+                "button_disabled": true
+            }));
+        }
+    }, [selectedExercise]);
+
     const footerFunc = () => {
-        navigate('/vowels/exercises/');
+        if (selectedExercise.value === "Learn Vowels") {
+            navigate('/vowels');   
+        } else if (selectedExercise.value === "Learn Consonants"){
+            navigate('/consonants');
+        }
     }
     
     return (
@@ -100,19 +103,17 @@ const ExTypePage = () => {
             <Header logo={sample_logo}/>
             <div className="ExTypePage--item-container">
                 <OptionsButton btnId={1}
-                                currActive={""}
+                                currActive={selectedExercise}
                                 func={() => {}}
-                                setActive={""}
-                                title={"Learn vowels"}/>
-                <OptionsButton btnId={1}
-                                currActive={""}
+                                setActive={setSelectedExercise}
+                                title={"Learn Vowels"}/>
+                <OptionsButton btnId={2}
+                                currActive={selectedExercise}
                                 func={() => {}}
-                                setActive={""}
+                                setActive={setSelectedExercise}
                                 title={"Learn Consonants"}/>
             </div>
-            <Footer footerData={footerData} 
-                func_1={footerFunc} 
-                func_2={footerFunc}/>        
+            <Footer footerData={footerData} func_1={footerFunc} func_2={footerFunc}/>  
         </div>
     )
 }
