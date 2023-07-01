@@ -4,10 +4,10 @@ import Button from "./Button";
 import { useEffect } from "react";
 
 // Result Sounds
-import correct_answer from '../assets/correct_answer.wav';
-import wrong_answer from '../assets/wrong_answer.wav';
-import wrong_answer2 from '../assets/wrong_answer2.mp3';
-const currWrong = wrong_answer2
+// import correct_answer from '../assets/correct_answer.wav';
+// import wrong_answer from '../assets/wrong_answer.wav';
+// import wrong_answer2 from '../assets/wrong_answer2.mp3';
+// const currWrong = wrong_answer2
 
 import Pallete from "./GlobalColourPallete";
 

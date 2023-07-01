@@ -93,7 +93,7 @@ const VowelsPage = () => {
     )
 
     const footerFunc = () => {
-        navigate('/vowelsExercises');
+        navigate('/vowels/exercises/');
     }
     
     return (

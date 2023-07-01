@@ -13,7 +13,7 @@ import Pallete from "../../components/GlobalColourPallete";
 
 const StyledExerciseSelector = styled.button`
     min-width: 40rem;
-    min-height: 80px;
+    min-height: 70px;
 
     text-align: center;
 
@@ -120,9 +120,9 @@ const Footer_Chooser = ({chosenOption, bottom_text, func}) => {
     )
 }
 
-const Selector = ({title, exercise, currActive, setActive, btnId}) => {
+const Selector = ({title, exercise, currActive, setActive, btnId, route}) => {
     const clickHandler = () => {
-        setActive({"id": btnId, "value": exercise});
+        setActive({"id": btnId, "exercise": exercise, "route": route});
     }
     return (
         <StyledExerciseSelector onClick={clickHandler} isactive={currActive.id === btnId ? "true" : "false"}>
@@ -131,40 +131,13 @@ const Selector = ({title, exercise, currActive, setActive, btnId}) => {
     )
 }
 
-const exercisesAll = [
-    {
-        "ex": "Ex1",
-        "title": "Choose the correct english transliteration"
-    },
-    {
-        "ex": "Ex2",
-        "title": "First character of the object in the given image"
-    },
-    {
-        "ex": "Ex4",
-        "title": "Order the characters according to the sound"
-    },
-    {
-        "ex": "Ex5",
-        "title": "Complete the given word"
-    },
-    {
-        "ex": "Ex6",
-        "title": "Identify the character from the given sound"
-    },
-    {
-        "ex": "Ex7",
-        "title": "Trace the Character"
-    },
-]
-
-const ExerciseChooser = ({setExercise}) => {
-    const [selectedExercise, setSelectedExercise] = useState({"id": '', "value": ''});
+const ExerciseChooser = ({setExercise, exerciseDescription}) => {
+    const [selectedExercise, setSelectedExercise] = useState({"id": '', "exercise": '', "route": ''});
     const navigate = useNavigate();
     const setChosenExercise = () => {
-        if (selectedExercise.value !== "") {
-            setExercise(selectedExercise.value);
-            navigate(`/${selectedExercise.value}`);
+        if (selectedExercise.exercise !== "") {
+            setExercise(selectedExercise.exercise);
+            navigate(`/${selectedExercise.route}`);
         }
     }
 
@@ -175,18 +148,19 @@ const ExerciseChooser = ({setExercise}) => {
                 {"Select an exercise to begin..."}
             </div>
             <div className="exChooser--options-container">
-                {exercisesAll.map((data, dataI) => (
+                {exerciseDescription.description.map((data, dataI) => (
                     <Selector title={data.title}
                         exercise={data.ex}
+                        route={data.route}
                         btnId={`op${dataI}`}
                         key={`op${dataI}`}
                         setActive={setSelectedExercise}
                         currActive={selectedExercise}/>
                 ))}
             </div>
-            <Footer_Chooser bottom_text={"Learn Konkani Vowels with the given exercises"} 
+            <Footer_Chooser bottom_text={exerciseDescription.footer_text} 
                             func={setChosenExercise} 
-                            chosenOption={selectedExercise.value}/>
+                            chosenOption={selectedExercise.exercise}/>
         </div>
     )
 }

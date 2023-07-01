@@ -9,7 +9,8 @@
 }
 
 .exChooser--title {
-    /* padding-top: 0px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-family: poppins;
     font-weight: 500;
     font-size: 140%;
@@ -25,7 +26,8 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
 
-    gap: 10px;
+    gap: 5px;
+    padding-bottom: 10px;
 }
 
 

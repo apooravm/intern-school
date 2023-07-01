@@ -1,3 +1,6 @@
+// import "01_k_sound" from './assets/consonantSound';
+import k_sound_01 from './assets/consAudio/k_sound_01.mp3'
+
 const vowels = [
     ['अ', 'a'],
     ['आ', 'aa'],
@@ -48,4 +51,41 @@ const words2 = [
     ['अनुभव', 'anubhav', 'experience'],
   ];
 
-export {vowels, words, words2};
+  const Consonants = [
+    ['क', 'ka'],
+    ['ख', 'kha'],
+    ['ग', 'ga'],
+    ['घ', 'gha'],
+    ['च', 'cha'],
+    ['छ', 'chha'],
+    ['ज', 'ja'],
+    ['झ', 'jha'],
+    ['ट', 'ta'],
+    ['ण', 'arna'],
+    ['त', 'ta'],
+    ['थ', 'tha'],
+    ['द', 'da'],
+    ['ध', 'dha'],
+    ['न', 'na'],
+    ['प', 'pa'],
+    ['फ', 'pha'],
+    ['ब', 'ba'],
+    ['भ', 'bha'],
+    ['म', 'ma'],
+    ['य', 'ya'],
+    ['र', 'ra'],
+    ['ल', 'la'],
+    ['व', 'va'],
+    ['श', 'sha'],
+    ['ष', 'scha'],
+    ['स', 'sa'],
+    ['ह', 'ha'],
+    ['ळ', 'la'],
+    ['क्ष', 'ksha']
+  ];
+
+const ConsonantSoundMapped = {
+  'क': k_sound_01,
+}
+
+export {vowels, words, words2, Consonants, ConsonantSoundMapped};

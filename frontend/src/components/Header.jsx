@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "styled-components";
 
 import Pallete from "./GlobalColourPallete";
+import { useNavigate } from "react-router-dom";
 
 const StyledHeader = styled.nav`
     height: 40px;
@@ -22,15 +23,20 @@ const StyledHeader = styled.nav`
 const StyledImage = styled.img`
     max-width: 50px;
 
+    &:hover {
+        cursor: pointer;
+    }
+
     @media (max-width: 600px) {
         max-width: 80px;
     }
 `;
 
 const Header = ({logo}) => {
+    const navigate = useNavigate();
     return (
         <StyledHeader>
-            <StyledImage src={logo} alt="airbnb logo" />
+            <StyledImage src={logo} alt="airbnb logo" onClick={() => {navigate("/vowels")}}/>
         </StyledHeader>
 
     )

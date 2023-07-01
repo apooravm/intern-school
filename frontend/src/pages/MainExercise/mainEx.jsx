@@ -340,14 +340,14 @@ const Footer_Ex = ({bottomText_1, bottomText_2, selectedOption, setNextExState, 
 
 import { ExerciseDataGen } from "../../QuestionCombos";
 
-const MainEx = ({exNum}) => {
+const MainEx = ({exNum, type}) => {
     const getRandomEx = () => {
         let exMain = ExerciseDataGen[exNum];
-        let [num, data] = [exMain.num, exMain.getData()];
+        let [num, data] = [exMain.num, exMain.getData(type)];
         return [num, data];
     }
 
-    let [initNum, initData] = getRandomEx(exNum);
+    let [initNum, initData] = getRandomEx();
 
     const [isCorrect, setIsCorrect] = useState("");
     const [changeEx, setChangeEx] = useState({"count": 0, "score": 0, "change": false});
@@ -459,7 +459,7 @@ const MainEx = ({exNum}) => {
             <ScorePage setScoreDisplay={setScoreDisplay} 
                     score={changeEx.score} 
                     maxScore={changeEx.count}
-                    mainPath={"/vowels"}
+                    mainPath={`/${type}`}
                     />
 
             <div className="MainEx--footer">
