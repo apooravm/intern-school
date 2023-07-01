@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import './mainEx.styled.css';
-import airbnbLogo from '../../assets/airbnb.svg';
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
