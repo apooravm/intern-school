@@ -11,11 +11,13 @@ const StyledHeader = styled.nav`
     background-color: ${Pallete.header.default};
 
     @media (max-width: 600px) {
+        align-items: center;
+        justify-content: center;
         height: 40px;
         display: flex;
         padding: 0px;
         padding-top: 15px;
-        padding-left: 30px;
+        /* padding-left: 30px; */
         padding-bottom: 10px;
     }
 `;
@@ -28,7 +30,7 @@ const StyledImage = styled.img`
     }
 
     @media (max-width: 600px) {
-        max-width: 80px;
+        max-width: 300px;
     }
 `;
 
