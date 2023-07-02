@@ -18,7 +18,7 @@ const StyledFooter = styled.footer`
     justify-content: space-around;
     align-items: center;
     padding: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 26px;
     
     border-top: 5px solid ${Pallete.footer.border};
 

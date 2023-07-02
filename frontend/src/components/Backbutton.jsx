@@ -60,7 +60,7 @@ const Backbutton = () => {
     const navigate = useNavigate();
     const goToPrevPage = () => {
         const routeSplit = location.pathname.split("/");
-        const prevRoute = routeSplit.slice(0, routeSplit.length-2).join("/");
+        const prevRoute = routeSplit.slice(0, routeSplit.length-1).join("/");
         navigate(prevRoute.length > 0 ? prevRoute : "/"+prevRoute);
 
     }
