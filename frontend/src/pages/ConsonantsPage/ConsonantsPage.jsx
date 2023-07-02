@@ -106,7 +106,7 @@ const ConsonantsPage = () => {
     }
 
     const footerFunc = () => {
-        navigate('/consonants/exercises/');
+        navigate('/consonants/exercises');
     }
     
     return (
