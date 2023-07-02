@@ -7,9 +7,10 @@
 
 .ExTypePage--item-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
+    align-self: center;
+    width: 60%;
 
     gap: 10px;
 

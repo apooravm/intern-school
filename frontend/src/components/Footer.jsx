@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import Button from "./Button";
+import Backbutton from "./Backbutton";
 import { useEffect } from "react";
 
 // Result Sounds
@@ -111,6 +112,7 @@ const Footer = ({footerData, func_1, func_2}) => {
     
     return (
         <StyledFooter footer_state={data.footerState} >
+                    <Backbutton />
                     <StyledText change_text_colour={data.changeFooterColour ? data.footerState === "incorrect" ? "true" : "false" : "false"}>
                         {data.bottom_text}
                     </StyledText>
