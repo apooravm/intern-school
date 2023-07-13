@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 
 import Pallete from "../../components/GlobalColourPallete";
 
-import { Consonants, ConsonantSoundMapped } from "../../StaticData";
+import { consonants, characterSoundMapped } from "../../StaticData";
 
 const StyledConsonantsSqrButton = styled.button`
     padding-block: 1px;
@@ -113,10 +113,10 @@ const ConsonantsPage = () => {
         <div className="ConsonantsPage--container">
             <Header logo={sample_logo}/>
             <div className="ConsonantsPage--item-container">
-                {Consonants.map((data, ind) => (
+                {consonants.map((data, ind) => (
                     <ConsonantsSqrButton setActive={() => {}}
                         key={ind}
-                        func={() => {PlaySound(ConsonantSoundMapped[data[0]])}}
+                        func={() => {PlaySound(characterSoundMapped[data[0]])}}
                         character={data[0]}
                         trans={data[1]}
                     />

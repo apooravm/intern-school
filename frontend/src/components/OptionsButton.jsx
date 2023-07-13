@@ -7,8 +7,8 @@ const StyledOptionsButton = styled.button`
     padding-inline: 130px;
     padding-block: 10px;
 
-    min-width: 100%;
-    width: 100%;
+    min-width: 200px;
+    /* width: 100%; */
 
     font-family: poppins;
     font-weight: 500;

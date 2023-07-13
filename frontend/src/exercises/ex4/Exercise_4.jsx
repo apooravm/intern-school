@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import OptionsButton from "../../components/OptionsButton";
 
 import Pallete from "../../components/GlobalColourPallete";
-import { VowelSoundMapped } from "../../StaticData";
+import { characterSoundMapped } from "../../StaticData";
 
 const StyledInputDiv = styled.div`
     text-align: center;
@@ -91,39 +91,47 @@ const StyledDeleteButton = styled.button`
     }
 `;
 
-const OptionButton = ({func, title, mainStack, setMainStack, btnId, currActiveId, setCurrActiveId}) => {
+const OptionButton = ({ func, title, mainStack, setMainStack, btnId, currActiveId, setCurrActiveId }) => {
     const [value, setValue] = useState(title);
+  
+    useEffect(() => {
+      setValue(title);
+    }, [title]);
+  
     const button_func = () => {
-        const updatedResultsOrder = [...mainStack.resultsOrder];
-        let toggle = true;
-        for (let i = 0; i < updatedResultsOrder.length; i++) {
-            if (!updatedResultsOrder[i]) {
-                updatedResultsOrder[i] = value;
-                toggle = !toggle;
-                break;
-            }
+      const updatedResultsOrder = [...mainStack.resultsOrder];
+      let toggle = true;
+      for (let i = 0; i < updatedResultsOrder.length; i++) {
+        if (!updatedResultsOrder[i]) {
+          updatedResultsOrder[i] = value;
+          toggle = !toggle;
+          break;
         }
-        if (toggle) {
-            updatedResultsOrder.pop();
-            updatedResultsOrder.push(value);
-        }
-
-        setMainStack(prevState => ({
-            ...prevState,
-            resultsOrder: updatedResultsOrder,
-        }));
-
-        func();
-    }
+      }
+      if (toggle) {
+        updatedResultsOrder.pop();
+        updatedResultsOrder.push(value);
+      }
+  
+      setMainStack((prevState) => ({
+        ...prevState,
+        resultsOrder: updatedResultsOrder,
+      }));
+  
+      func();
+    };
+  
     return (
-        <OptionsButton title={value || " "}
-                    btnId={btnId}
-                    setActive={setCurrActiveId}
-                    // currActive={currActiveId}
-                    currActive={"UnComment above"}
-                    func={button_func}></OptionsButton>
-    )
-};
+      <OptionsButton
+        title={value || " "}
+        btnId={btnId}
+        setActive={setCurrActiveId}
+        currActive={"UnComment above"}
+        func={button_func}
+      ></OptionsButton>
+    );
+  };
+  
 
 const BlankOptions = ({value}) => {
     return (
@@ -161,7 +169,7 @@ const SoundButton = ({correctOrder}) => {
 
     const playSound = (index) => {
         setDisabled(true);
-        const sound = VowelSoundMapped[correctOrder[index]];
+        const sound = characterSoundMapped[correctOrder[index]];
 
         if (!isDisabled) {
             const audio = new Audio(sound);
@@ -197,6 +205,7 @@ const SoundButton = ({correctOrder}) => {
 };
 
 const Exercise_4 = ({func, optionsArray, reset, correctOrder}) => {
+    console.log(correctOrder)
     const [currActiveId, setCurrActiveId] = useState('');
     const [globCompState, setGlobCompState] = useState({
         "optionsLength": optionsArray.length,

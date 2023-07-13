@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 
 import Pallete from "../../components/GlobalColourPallete";
 
-import { vowels, VowelSoundMapped } from "../../StaticData";
+import { vowels, characterSoundMapped } from "../../StaticData";
 
 const StyledVowelsSqrButton = styled.button`
     padding-block: 5px;

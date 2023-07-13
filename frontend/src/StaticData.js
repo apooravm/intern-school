@@ -59,20 +59,22 @@ const vowels = [
     ['अं', 'an']
 ];
 
-const words = [
-    ['आकाश', 'aakaash', 'sky'],
-    ['आवड', 'aavd', 'like'],
-    ['आसा', 'aasa', 'hope'],
-    ['एक', 'ek', 'one'],
-    ['ईचर', 'echar', 'pickle'],
-    ['ओस', 'os', 'dew'],
-    ['उमाळ', 'umaal', 'rain'],
-    ['ऊर', 'oor', 'village'],
-    ['एका', 'eka', 'one (feminine)'],
-    ['अशी', 'ashi', 'like this'],
-];
-
-const words2 = [
+const vowelWords = [
+    ['अनस', 'Anas', 'Pineapple'],
+    ['आई', 'Aai', 'Mother'],
+    ['आमली', 'Amli', 'Salted Mango'],
+    ['इसवण', 'Isvan', 'Kingfish'],
+    ['इमारत', 'Imarat', 'Building'],
+    ['ई-मेल', 'Email', 'Email'],
+    ['उतर', 'Utar', 'Word'],
+    ['उमेद', 'Umed', 'Happiness/ Joy'],
+    ['ऊस', 'Uus', 'Sugarcane'],
+    ['एक', 'Ek', 'One'],
+    ['एकवट', 'Ekvat', 'Unity'],
+    ['ओठ', 'Oth', 'Lip'],
+    ['औरंगझेब', 'Aurangzeb', 'Aurangzeb (Historical Figure)'],
+    ['अंबरारी', 'Ambarari', 'In the Sky'],
+    ['अंक', 'Ank', 'Number'],
     ['आकाश', 'aakaash', 'sky'],
     ['आवड', 'aavd', 'like'],
     ['आसा', 'aasa', 'hope'],
@@ -95,7 +97,7 @@ const words2 = [
     ['अनुभव', 'anubhav', 'experience'],
   ];
 
-  const Consonants = [
+  const consonants = [
     ['क', 'ka'],
     ['ख', 'kha'],
     ['ग', 'ga'],
@@ -128,7 +130,7 @@ const words2 = [
     ['क्ष', 'ksha']
   ];
 
-const VowelSoundMapped = {
+const characterSoundMapped = {
   'अ': a_sound_01_अ,
   'आ': aa_sound_02_आ,
   'इ': i_sound_03_इ,
@@ -140,6 +142,36 @@ const VowelSoundMapped = {
   'ओ': o_sound_09_ओ,
   'औ': au_sound_10_औ,
   'अं': an_sound_11_अं,
+  'क': ka_sound_01_क,
+  'ख': kha_sound_02_ख,
+  'ग': ga_sound_03_ग,
+  'घ': gha_sound_04_घ,
+  'च': cha_sound_05_च,
+  'छ': chha_sound_06_छ,
+  'ज': ja_sound_07_ज,
+  'झ': jha_sound_08_झ,
+  'ट': ta_sound_09_ट,
+  'ण': rna_sound_10_ण,
+  'त': ta_sound_11_त,
+  'थ': tha_sound_12_थ,
+  'द': da_sound_13_द,
+  'ध': thda_sound_14_ध,
+  'न': na_sound_15_न,
+  'प': pa_sound_16_प,
+  'फ': fa_sound_17_फ,
+  'ब': ba_sound_18_ब,
+  'भ': bha_sound_19_भ,
+  'म': ma_sound_20_म,
+  'य': ya_sound_21_य,
+  'र': ra_sound_22_र,
+  'व': va_sound_23_व,
+  'ल': la_sound_24_ल,
+  'श': sha_sound_25_श,
+  'ष': shha_sound_26_ष,
+  'स': sa_sound_27_स,
+  'ह': ha_sound_28_ह,
+  'ळ': arda_sound_29_ळ,
+  'क्ष': ksha_sound_30_क्ष,
 }
 
 const ConsonantSoundMapped = {
@@ -173,6 +205,70 @@ const ConsonantSoundMapped = {
   'ह': ha_sound_28_ह,
   'ळ': arda_sound_29_ळ,
   'क्ष': ksha_sound_30_क्ष,
-}
+};
 
-export {vowels, words, words2, VowelSoundMapped, Consonants, ConsonantSoundMapped};
+const consonantWords = [
+  ['कमळ', 'Kamal', 'Lotus'],
+  ['कर', 'Kar', 'Do'],
+  ['खेळ', 'Khel', 'Game'],
+  ['खांबो', 'Khambo', 'Pilar'],
+  ['गणीत', 'Ganit', 'Mathematics'],
+  ['गणपती', 'Ganpati', 'Lord Ganesha'],
+  ['घर', 'Ghar', 'House'],
+  ['घुमट', 'Ghumt', 'Musical Instrument-Ghumat'],
+  ['चमचो', 'Chamcho', 'Spoon'],
+  ['चांदी', 'Chandi', 'Silver'],
+  ['छंद', 'Chaand', 'Verse'],
+  ['छत्री', 'Chatri', 'Umbrella'],
+  ['जगम', 'Jagam', 'Fruit name'],
+  ['जल्लो', 'Jallo', 'Cockroach'],
+  ['झगड', 'Jhagad', 'Fight'],
+  ['टमाट', 'Tamat', 'Tomato'],
+  ['टँकर', 'Tankar', 'Tanker'],
+  ['ठपको', 'Thapko', 'Blot'],
+  ['ठसो', 'Thaso', 'Print'],
+  ['डमरू', 'Damaru', 'Damru'],
+  ['डफ', 'Duff', 'Musical Instrument-Duff'],
+  ['णव', 'Nav', 'Nine'],
+  ['तलवार', 'Talwar', 'Sword'],
+  ['तोरींग', 'Toring', 'Pomelo'],
+  ['थवा', 'Thava', 'Flock of Birds'],
+  ['थरमास', 'Tharmas', 'Flask'],
+  ['दांत', 'Dant', 'Teeth'],
+  ['दूध', 'Doodh', 'Milk'],
+  ['धोल', 'Dhol', 'Drum'],
+  ['धा', 'Dha', 'Ten'],
+  ['नळ', 'Nall', 'Tap'],
+  ['नाक', 'Naak', 'Nose'],
+  ['पोपाय', 'Popai', 'Papaya'],
+  ['पणस', 'Pans', 'Jackfruit'],
+  ['फळ', 'Fall', 'Fruit'],
+  ['फळो', 'Fhallo', 'Blackboard'],
+  ['बदाम', 'Badam', 'Almond'],
+  ['बाटली', 'Battli', 'Bottle'],
+  ['भट', 'Bhat', 'Bhat'],
+  ['भाट', 'Bhaat', 'Orchard'],
+  ['मखर', 'Makhar', 'Wooden Frame-Makhar/ Canopy'],
+  ['मटण', 'Matan', 'Meat'],
+  ['यज्ञ', 'Yadnya', 'Yadnya'],
+  ['याक', 'Yak', 'Yak'],
+  ['रथ', 'Rath', 'Chariot'],
+  ['राम', 'Ram', 'Lord Rama'],
+  ['लाट', 'Lat', 'Wooden Water Pump'],
+  ['लेप', 'Lep', 'Plaster'],
+  ['वाट', 'Vaat', 'Banyan Tree'],
+  ['वेल', 'Vel', 'Ilaichi'],
+  ['शेत', 'Shet', 'Field'],
+  ['शीत', 'Sheet', 'Rice'],
+  ['षटकोन', 'Shatakona', 'Hexagon'],
+  ['ससो', 'Saso', 'Rabbit'],
+  ['साठ', 'Sas', 'Sixty'],
+  ['हत्ती', 'Hatti', 'Elephant'],
+  ['हात', 'Hat', 'Hand'],
+  ['क्षत्रीय', 'Kshatriya', 'Warrior'],
+  ['क्षमा', 'Kshama', 'Forgiveness'],
+  ['ज्ञानेश्वर', 'Jnyaneshwar', 'Saint Dnyaneshwar'],
+  ['ज्ञान', 'Jnyan', 'Knowledge']
+];
+
+export {vowels, vowelWords, characterSoundMapped, consonants, ConsonantSoundMapped, consonantWords};

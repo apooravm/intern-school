@@ -6,7 +6,7 @@ import { styled } from "styled-components";
 import OptionsButton from "../../components/OptionsButton";
 
 import Pallete from "../../components/GlobalColourPallete";
-import { ConsonantSoundMapped, VowelSoundMapped } from "../../StaticData";
+import { characterSoundMapped } from "../../StaticData";
 
 const CharacterDisplay_Bigger = styled.input`
     padding-block: 20px;
@@ -78,11 +78,11 @@ const Exercise_1 = ({char, optionsArray, func, reset}) => {
     return (
         <div id="ex1--root">
            <CharacterDisplay_Bigger type="button" 
-                            value={displayingCharacter} 
+                            value={char} 
                             onClick={() => {
                                 // May need to fix this by mergin the two maps
-                                PlaySound(ConsonantSoundMapped[displayingCharacter])
-                                PlaySound(VowelSoundMapped[displayingCharacter])
+                                PlaySound(characterSoundMapped[char])
+                                PlaySound(characterSoundMapped[char])
                             }} 
                             />
             <div className="ex1--container">

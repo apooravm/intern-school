@@ -1,4 +1,4 @@
-import { vowels, words, words2, Consonants, VowelSoundMapped } from "./StaticData";
+import { vowels, vowelWords, consonants, characterSoundMapped, consonantWords } from "./StaticData";
   
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -20,7 +20,7 @@ const Ex1_PromptGen = (exType) => {
             "answer_description": `Answer is ${correct[1]}`
         };
     } else {
-        const [correct, second, third] = shuffleArray(Consonants).slice(0, 3);  
+        const [correct, second, third] = shuffleArray(consonants).slice(0, 3);  
         const transliterationArray = shuffleArray([correct[1], second[1], third[1]]);
         return {
             "exercise_hint": "Notice the double letters!",
@@ -33,7 +33,7 @@ const Ex1_PromptGen = (exType) => {
 }
 
 // Image
-const imageQuestions = [
+const imageQuestions_vowels = [
     {
         "character": 'आ',
         "word": 'आकाश',
@@ -53,9 +53,31 @@ const imageQuestions = [
         "image": "https://static.vecteezy.com/system/resources/previews/011/502/022/original/an-illustration-of-cute-mango-fruit-hand-drawn-cartoon-free-png.png"
     },
 ]
+
+const imageQuestions_consonants = [
+    {
+        "character": 'ग',
+        "word": 'गणपती',
+        "eng": "Ganpati",
+        "image": "https://static.toiimg.com/thumb/msid-86040325,width-1280,resizemode-4/86040325.jpg"
+    },
+    {
+        "character": 'घ',
+        "eng": "House",
+        "word": 'घर',
+        "image": "https://st.depositphotos.com/1003451/2859/v/600/depositphotos_28594839-stock-illustration-house-vector-without-gradient.jpg"
+    },
+    {
+        "character": 'छ',
+        "eng": "Umbrella",
+        "word": 'छत्री',
+        "image": "https://img.freepik.com/premium-vector/orange-umbrella-cute-flat-style-sticker-scrapbooking_689059-112.jpg?w=2000"
+    },
+]
+
 const Ex2_PromptGen = (exType) => {
     if (exType === "vowels") {
-        const imgQ = imageQuestions[Math.floor(Math.random() * imageQuestions.length)];
+        const imgQ = imageQuestions_vowels[Math.floor(Math.random() * imageQuestions_vowels.length)];
         const filteredVowels = vowels.filter((value) => value[0] !== imgQ.character);
         const [second, third] = shuffleArray(filteredVowels).slice(0, 2);
         const transliterationArray = shuffleArray([imgQ.character[0], second[0], third[0]]);
@@ -67,7 +89,17 @@ const Ex2_PromptGen = (exType) => {
             "answer_description": `Answer is ${imgQ.character[0]} | ${imgQ.word} (${imgQ.eng})`
         };
     } else {
-        
+        const imgQ = imageQuestions_consonants[Math.floor(Math.random() * imageQuestions_consonants.length)];
+        const filteredVowels = vowels.filter((value) => value[0] !== imgQ.character);
+        const [second, third] = shuffleArray(filteredVowels).slice(0, 2);
+        const transliterationArray = shuffleArray([imgQ.character[0], second[0], third[0]]);
+        return {
+            "exercise_hint": "remember to pronounce the name before picking your answer",
+            "correctOption": imgQ.character[0],
+            "optionsArray": transliterationArray,
+            "imgSrc": imgQ.image,
+            "answer_description": `Answer is ${imgQ.character[0]} | ${imgQ.word} (${imgQ.eng})`
+        };
     }
 }
 
@@ -84,12 +116,24 @@ const Ex4_PromptGen = (exType) => {
             "optionsArray": optionsArray,
             "answer_description": `Correct Order: ${correctOrder[0]} - ${correctOrder[1]} - ${correctOrder[2]} - ${correctOrder[3]}`
         };
-    }   
+    } else {
+        const soundSrc = false;
+        const [first, second, third, fourth] = shuffleArray(consonants).slice(0, 4);
+        const correctOrder = [first[0], second[0], third[0], fourth[0]];
+        const optionsArray = shuffleArray([first[0], second[0], third[0], fourth[0]]);
+        return {
+            "exercise_hint": "listen carefully for each sound",
+            "sound": soundSrc,
+            "correctOrder": correctOrder,
+            "optionsArray": optionsArray,
+            "answer_description": `Correct Order: ${correctOrder[0]} - ${correctOrder[1]} - ${correctOrder[2]} - ${correctOrder[3]}`
+        };
+    }
 }
 
 const Ex5_PromptGen = (exType) => {
     if (exType === "vowels") {
-        const word_extra = words2[Math.floor(Math.random() * words2.length)]
+        const word_extra = vowelWords[Math.floor(Math.random() * vowelWords.length)]
         const word = word_extra[0];
         const correctChar = word[0];
         const incompleteText = word.slice(1);
@@ -116,24 +160,56 @@ const Ex5_PromptGen = (exType) => {
             "answer_description": `${word_extra[0]} (${word_extra[1]}) means '${word_extra[2]}'`
         };   
     } else {
+        const word_extra = consonantWords[Math.floor(Math.random() * consonantWords.length)]
+        const word = word_extra[0];
+        const correctChar = word[0];
+        const incompleteText = word.slice(1);
+        let second = vowels[Math.floor(Math.random() * vowels.length)];
+        while (second[0] === word[0]) {
+            second = vowels[Math.floor(Math.random() * vowels.length)];
+        }
 
+        let third = vowels[Math.floor(Math.random() * vowels.length)];
+        while (third[0] === word[0] || third[0] === second[0]) {
+            third = vowels[Math.floor(Math.random() * vowels.length)];
+        }
+
+        let fourth = vowels[Math.floor(Math.random() * vowels.length)];
+        while (fourth[0] === word[0] || fourth[0] === second[0] || fourth[0] === third[0]) {
+            fourth = vowels[Math.floor(Math.random() * vowels.length)];
+        }
+        const options = [word[0], second[0], third[0], fourth[0]];
+        return {
+            "exercise_hint": "try to remember if you have heard of the word in your previous exercises",
+            "correctOption": correctChar,
+            "incompleteText": incompleteText,
+            "optionsArray": shuffleArray(options),
+            "answer_description": `${word_extra[0]} (${word_extra[1]}) means '${word_extra[2]}'`
+        };   
     }
 }
 
 const Ex6_PromptGen = (exType) => {
     if (exType === "vowels") {
-        const soundSrc = false;
         const [correct, second, third] = shuffleArray(vowels).slice(0, 3);  
         const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
         return {
             "exercise_hint": "be mindful of the difference in the sounds of similar characters", 
-            "sound": VowelSoundMapped[correct[0]],
+            "sound": characterSoundMapped[correct[0]],
             "optionsArray": transliterationArray,
             "correctOption": correct[0],
             "answer_description": `Sound of ${correct[0]}`
         }   
     } else {
-        
+        const [correct, second, third] = shuffleArray(consonants).slice(0, 3);  
+        const transliterationArray = shuffleArray([correct[0], second[0], third[0]]);
+        return {
+            "exercise_hint": "be mindful of the difference in the sounds of similar characters", 
+            "sound": characterSoundMapped[correct[0]],
+            "optionsArray": transliterationArray,
+            "correctOption": correct[0],
+            "answer_description": `Sound of ${correct[0]}`
+        }   
     }
 }
 
