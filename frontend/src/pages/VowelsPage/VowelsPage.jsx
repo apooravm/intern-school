@@ -117,7 +117,7 @@ const VowelsPage = () => {
                 {vowels.map((data, ind) => (
                     <VowelsSqrButton setActive={() => {}}
                         key={ind}
-                        func={() => {PlaySound(VowelSoundMapped[data[0]])}}
+                        func={() => {PlaySound(characterSoundMapped[data[0]])}}
                         character={data[0]}
                         trans={data[1]}
                     />
